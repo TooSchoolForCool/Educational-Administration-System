@@ -35,9 +35,9 @@ public class JFrame_Login extends JFrame implements ActionListener{
 		this.setResizable(false);
 		//账号标签
 		JLabel label = new JLabel("账号");
-		label.setBounds(25, 23, 50, 30);
-		label.setFont(Utils.font);
-		this.getContentPane().add(label);
+		label.setBounds(25, 23, 50, 30); //位置和标题
+		label.setFont(Utils.font);       //字体
+		this.getContentPane().add(label);//添加到面板
 		//密码标签
 		JLabel label_1 = new JLabel("密码");
 		label_1.setBounds(25, 73, 50, 30);
@@ -60,24 +60,23 @@ public class JFrame_Login extends JFrame implements ActionListener{
 		CB_password.setBounds(34, 122, 30, 29);
 		CB_password.setActionCommand("密码可见");
 		this.getContentPane().add(CB_password);
-		//
+		//登陆键
 		JButton BT_login = new JButton("登录");
 		BT_login.setBounds(92, 122, 130, 30);
 		BT_login.setFont(Utils.font);
 		BT_login.setFocusable(false);
 		this.getContentPane().add(BT_login);
-		
+		//取消键
 		JButton BT_cancel = new JButton("取消");
 		BT_cancel.setBounds(238, 122, 130, 30);
 		BT_cancel.setFont(Utils.font);
 		BT_cancel.setFocusable(false);
 		this.getContentPane().add(BT_cancel);
-		
+		//添加监听
 		CB_password.addActionListener(this);
 		BT_login.addActionListener(this);
 		BT_cancel.addActionListener(this);
-		
-		
+		//设置为可见
 		this.setVisible(true);
 	}
 	
