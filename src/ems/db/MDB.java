@@ -10,12 +10,11 @@ import ems.user.User;
 
 public class MDB {
 	private final static String DBNAME = "MDB";
-	private final static String URL = "jdbc:mysql://localhost:3306/"+DBNAME+"?useSSL=false";
+	private final static String URL = "jdbc:mysql://localhost:3306/"+"HNU_DB"+"?useSSL=false";
 	private final static String DBUSER = "root";
-	private final static String DBPASSWORD = "0209";
+	private final static String DBPASSWORD = "gundanba88";
 	
 	private static Connection conn;
-	
 	
 	public MDB(){
 		conn = GetDBCnt();
@@ -51,8 +50,7 @@ public class MDB {
 		user.setstuBirthday("19950505");
 		user.setstuPhone("13723336666");
 		user.setstuInDate("???");
-		
-		
+
 		return user;
 		
 		

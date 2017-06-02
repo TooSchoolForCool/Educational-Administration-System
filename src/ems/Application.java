@@ -23,8 +23,6 @@ public class Application implements OnLoginSuccessListener{
 	private static JFrame_Login JFlogin;
 	private static JFrame_Student JFStudent;
 	
-	
-	
 	public static void main(String[] args) {
 		mapplication = new Application();
 		
@@ -79,16 +77,6 @@ public class Application implements OnLoginSuccessListener{
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	private void setLookNFeel(){
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
