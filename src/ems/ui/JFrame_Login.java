@@ -12,6 +12,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import ems.Application;
+import ems.user.Student;
 import ems.user.User;
 import ems.utils.Utils;
 
@@ -102,51 +103,32 @@ public class JFrame_Login extends JFrame implements ActionListener{
 			String username = TF_username.getText();
 			String password = new String(TF_password.getPassword());
 			
-			
 			//合法用户名和密码
-			if(isUserNameValid(username)&&isPasswordValid(password)){
-				Application mapplication = Application.getApplication();
-				
-				//登录
-				loginlistener.OnLoginSuccess(mapplication.getMDB().Login(username, password));
-				
-			}else{//用户名密码不合法
+			Application mapplication = Application.getApplication();
+			int ret = mapplication.getMDB().login(username, password);
+			
+			if(ret == -1)
+			{
 				JOptionPane.showMessageDialog(null, "用户名或密码无效！", "提示",JOptionPane.ERROR_MESSAGE);
 			}
+			else	// 账户密码合法
+			{
+				// ret 为账户类型
+				System.out.println(ret);
+			}
+			
+//			if(isUserNameValid(username)&&isPasswordValid(password)){
+//				Application mapplication = Application.getApplication();
+//				//登录
+//				loginlistener.OnLoginSuccess(mapplication.getMDB().login(username, password));
+//			}else{//用户名密码不合法
+//				JOptionPane.showMessageDialog(null, "用户名或密码无效！", "提示",JOptionPane.ERROR_MESSAGE);
+//			}
+			
 			TF_username.setText("");
 			TF_password.setText("");
 		}else if(e.getActionCommand().equals("取消")){  //按下取消键
 			System.exit(0);
 		}
 	}
-	
-	/**判断是否为合法用户名*/
-    private boolean isUserNameValid(String unm) {
-        if(
-        		unm.isEmpty()
-        		||unm.contains(" ")
-        		||unm.contains(",")
-        		){
-            return false;
-        }else{
-            return true;
-        }
-    }
-    
-    /**判断是否为合法密码*/
-    private boolean isPasswordValid(String pwd) {
-        if (
-        		pwd.isEmpty()
-        		||pwd.length()<4
-        		||pwd.contains(" ")
-        		){
-            return false;
-        } else {
-            return true;
-        }
-    }
-	
-	
-	
-	
 }

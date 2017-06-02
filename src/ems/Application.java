@@ -33,9 +33,8 @@ public class Application implements OnLoginSuccessListener{
 		
 	}
 	
-	
 	public Application(){
-		mdb = new MDB();
+		mdb = new MDB("com.mysql.jdbc.Driver", "mysql", "localhost:3306", "HNU_DB", "root", "admin8888");
 		this.setLookNFeel();
 	}
 	
@@ -74,7 +73,6 @@ public class Application implements OnLoginSuccessListener{
 		}else{
 			JOptionPane.showMessageDialog(null, "µÇÂ¼Ê§°Ü£¡", "ÌáÊ¾",JOptionPane.ERROR_MESSAGE);
 		}
-		
 	}
 	
 	private void setLookNFeel(){
