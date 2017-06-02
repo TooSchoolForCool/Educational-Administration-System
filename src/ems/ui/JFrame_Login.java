@@ -1,4 +1,4 @@
-package ems;
+package ems.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import ems.Application;
+import ems.user.User;
 import ems.utils.Utils;
 
 public class JFrame_Login extends JFrame implements ActionListener{
@@ -20,13 +22,25 @@ public class JFrame_Login extends JFrame implements ActionListener{
 	private JPasswordField TF_password = null;
 	/**密码可见复选框*/
 	private JCheckBox CB_password = null;
+	
+	OnLoginSuccessListener loginlistener;
+	
+	public interface OnLoginSuccessListener{
+		void OnLoginSuccess(User user);
+	}
+	
+	public void setOnLoginSuccessListener(OnLoginSuccessListener loginlistener){
+		this.loginlistener = loginlistener;
+	}
+	
+	
 	/**构造方法*/
 	public JFrame_Login() {
 		
-		this.initialize();//初始化
+		this.init();//初始化
 	}
 	/**初始化方法*/
-	private void initialize() {
+	private void init() {
 		this.setTitle("教务管理系统-登录");
 		this.setBounds(100, 100, 400, 200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,22 +102,17 @@ public class JFrame_Login extends JFrame implements ActionListener{
 			String username = TF_username.getText();
 			String password = new String(TF_password.getPassword());
 			
+			
 			//合法用户名和密码
 			if(isUserNameValid(username)&&isPasswordValid(password)){
+				Application mapplication = Application.getApplication();
+				
+				//登录
+				loginlistener.OnLoginSuccess(mapplication.getMDB().Login(username, password));
 				
 			}else{//用户名密码不合法
-				
+				JOptionPane.showMessageDialog(null, "用户名或密码无效！", "提示",JOptionPane.ERROR_MESSAGE);
 			}
-			
-			
-			boolean flag = true;
-			if(flag){
-				
-				
-				this.setVisible(false);
-			}else{
-				JOptionPane.showMessageDialog(null, "登录失败！", "提示",JOptionPane.ERROR_MESSAGE);
-			}			
 			TF_username.setText("");
 			TF_password.setText("");
 		}else if(e.getActionCommand().equals("取消")){  //按下取消键
@@ -113,7 +122,11 @@ public class JFrame_Login extends JFrame implements ActionListener{
 	
 	/**判断是否为合法用户名*/
     private boolean isUserNameValid(String unm) {
-        if(unm.contains(" ")||unm.contains(",")) {
+        if(
+        		unm.isEmpty()
+        		||unm.contains(" ")
+        		||unm.contains(",")
+        		){
             return false;
         }else{
             return true;
@@ -122,7 +135,11 @@ public class JFrame_Login extends JFrame implements ActionListener{
     
     /**判断是否为合法密码*/
     private boolean isPasswordValid(String pwd) {
-        if (pwd.length() < 4 || pwd.contains(" ")) {
+        if (
+        		pwd.isEmpty()
+        		||pwd.length()<4
+        		||pwd.contains(" ")
+        		){
             return false;
         } else {
             return true;

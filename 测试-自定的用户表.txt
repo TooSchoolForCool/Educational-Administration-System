@@ -1,0 +1,6 @@
+create table User(
+    username varchar(20),
+    password varchar(20)
+);
+
+insert into User values('David','12345');

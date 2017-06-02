@@ -2,14 +2,94 @@ package ems;
 
 import java.awt.Font;
 
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-public class Main {
+import ems.db.MDB;
+import ems.ui.JFrame_Login;
+import ems.ui.JFrame_Student;
+import ems.ui.JFrame_Login.OnLoginSuccessListener;
+import ems.user.Student;
+import ems.user.User;
+
+public class Application implements OnLoginSuccessListener{
+	
+	private static Application mapplication;
+	private MDB mdb;
+	
+	User user;
+	
+	private static JFrame_Login JFlogin;
+	private static JFrame_Student JFStudent;
+	
+	
+	
+	public static void main(String[] args) {
+		mapplication = new Application();
+		
+//		setUIFont();
+		
+		JFlogin = new JFrame_Login();
+		JFlogin.setOnLoginSuccessListener(mapplication);
+		
+	}
+	
+	
+	public Application(){
+		mdb = new MDB();
+		this.setLookNFeel();
+	}
+	
+
+	public static Application getApplication(){
+		return mapplication;
+	}
+	
+	public MDB getMDB(){
+		return mdb;
+	}
+	
+	@Override
+	public void OnLoginSuccess(User user) {
+		if(user!=null){
+			this.user = user;
+			JFlogin.setVisible(false);
+			
+			switch(this.user.getIdentity()){
+			case User.IDEN_STUDENT:
+				
+				JFStudent = new JFrame_Student((Student)this.user);
+				
+				break;
+			case User.IDEN_TEACHER:
+				
+				
+				break;
+			case User.IDEN_MANAGER:
+				
+				
+				break;
+			}
+			
+			
+		}else{
+			JOptionPane.showMessageDialog(null, "µÇÂ¼Ê§°Ü£¡", "ÌáÊ¾",JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
-	public static void main(String[] args) {
+	private void setLookNFeel(){
 		try {
 		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 		        if (info.getName().equals("Windows")) {
@@ -18,14 +98,7 @@ public class Main {
 		        }
 		    }
 		} catch (Exception e) {}
-		
-//		setUIFont();
-		
-		JFrame_Login JFlogin = new JFrame_Login();
-		
-		
 	}
-
 	
 	public static void setUIFont(){
 		Font f = new Font("Î¢ÈíÑÅºÚ",Font.PLAIN,20);
@@ -41,11 +114,5 @@ public class Main {
 			 UIManager.put(item+ ".font",f); 
 		}
 	}
-	
-	
-	
-	
-	
-	
 	
 }
