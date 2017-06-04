@@ -1,7 +1,7 @@
 package ems.user;
 
-public class Student {
-	public final static int IDEN = 2; 
+public class Teacher {
+	public final static int IDEN = 1; 
 	
 	
 	private String stuID;
@@ -15,7 +15,7 @@ public class Student {
 	private String stuPhone;
 	private String stuInDate;
 	
-	public Student(){
+	public Teacher(){
 		
 	}
 	

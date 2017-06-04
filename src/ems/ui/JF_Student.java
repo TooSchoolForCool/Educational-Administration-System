@@ -11,17 +11,18 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import ems.user.Student;
-import ems.utils.Utils;
+import ems.utils.UIutils;
 
-public class JFrame_Student extends JFrame implements ActionListener,ChangeListener{
-	Student user;
+public class JF_Student extends JFrame implements ActionListener,ChangeListener{
+	Student student;
 	
 	private JTabbedPane TP_ctrl;
 	
-	public JFrame_Student(Student user) {
-		this.user = user;
+	public JF_Student(String LoginID) {
 		
-		System.out.println(this.user.toString());
+		//this.student = s;//根据LoginID在数据库查表从MDB获取Student对象
+		
+		//System.out.println(this.student.toString());
 		
 		init();
 	}
@@ -36,11 +37,11 @@ public class JFrame_Student extends JFrame implements ActionListener,ChangeListe
 		TP_ctrl = new JTabbedPane(JTabbedPane.TOP);
 		TP_ctrl.setFocusable(false);
 		TP_ctrl.addChangeListener(this);
-		TP_ctrl.setFont(Utils.font);
+		TP_ctrl.setFont(UIutils.font);
 		
-		TP_ctrl.add("学生管理", new JPanel_Stu_Security("学生管理"));		
-		TP_ctrl.add("课程管理", new JPanel_Stu_Course("课程管理"));		
-		TP_ctrl.add("考试管理", new JPanel_Stu_Exam("考试管理"));
+		TP_ctrl.add("学生管理", new JP_Stu_Security("学生管理"));		
+		TP_ctrl.add("课程管理", new JP_Stu_Course("课程管理"));		
+		TP_ctrl.add("考试管理", new JP_Stu_Exam("考试管理"));
 		
 		
 		Container container = this.getContentPane();
