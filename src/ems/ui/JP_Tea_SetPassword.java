@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class JP_Tea_Security extends JPanel implements ActionListener{
+public class JP_Tea_SetPassword extends JPanel implements ActionListener{
 	private JTextField oripassword;
 	private JTextField newpassword;
 	private JTextField newpassword2;
 	
-	public JP_Tea_Security(String name){
+	public JP_Tea_SetPassword(String name){
 		init(name);
 		
 	}

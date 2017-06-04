@@ -12,11 +12,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class JP_Tea_Course extends JPanel implements ActionListener{
+public class JP_Mng_MnCourse extends JPanel implements ActionListener{
 	
 	private JTabbedPane TP_ctrl;
 	
-	public JP_Tea_Course(String name){
+	public JP_Mng_MnCourse(String name){
 		init(name);
 		
 	}
@@ -26,17 +26,22 @@ public class JP_Tea_Course extends JPanel implements ActionListener{
 		setName(name);
 		setBounds(0, 0, 700, 500);
 		setFont(UIutils.font);
-		
+
 		TP_ctrl = new JTabbedPane(JTabbedPane.LEFT);
 		TP_ctrl.setBounds(0, 0, 700, 500);
 		TP_ctrl.setFocusable(false);
 		TP_ctrl.setFont(UIutils.font);
+
+		TP_ctrl.add("添加课程", new JP_Mng_MnCourse_Add("添加课程"));
+		TP_ctrl.add("删除课程", new JP_Mng_MnCourse_Delete("删除课程"));
+		TP_ctrl.add("修改课程", new JP_Mng_MnCourse_Update("修改课程"));
+		TP_ctrl.add("查询课程", new JP_Mng_MnCourse_Query("查询课程"));
 		
-		TP_ctrl.add("查询课程", new JP_Tea_Course_QCourses("查询课程"));
-		TP_ctrl.add("查询学生", new JP_Tea_Course_QStudents("查询学生"));
-		TP_ctrl.add("打分", new JP_Tea_Course_UpdateGrade("打分"));
-		
+        
 		add(TP_ctrl);
+		
+		
+		
 	}
 	
 

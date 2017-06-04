@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class JP_Tea_StuMng_QueryStuInfo extends JPanel implements ActionListener{
+public class JP_Stu_Course_Query extends JPanel implements ActionListener{
 	private JTextField oripassword;
 	private JTextField newpassword;
 	private JTextField newpassword2;
 	
-	public JP_Tea_StuMng_QueryStuInfo(String name){
+	public JP_Stu_Course_Query(String name){
 		init(name);
 		
 	}
@@ -27,7 +27,7 @@ public class JP_Tea_StuMng_QueryStuInfo extends JPanel implements ActionListener
 		setBounds(0, 0, 700, 500);
 		setFont(UIutils.font);
 		
-		JLabel label = new JLabel("ÍË¿Î½çÃæ");
+		JLabel label = new JLabel(getName());
 		label.setBounds(34, 32, 90, 30);
 		label.setFont(UIutils.font);
 		add(label);

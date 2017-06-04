@@ -39,7 +39,7 @@ public class JF_Student extends JFrame implements ActionListener,ChangeListener{
 		TP_ctrl.addChangeListener(this);
 		TP_ctrl.setFont(UIutils.font);
 		
-		TP_ctrl.add("学生管理", new JP_Stu_Security("学生管理"));		
+		TP_ctrl.add("学生管理", new JP_Stu_SetPassword("学生管理"));		
 		TP_ctrl.add("课程管理", new JP_Stu_Course("课程管理"));		
 		TP_ctrl.add("考试管理", new JP_Stu_Exam("考试管理"));
 		
