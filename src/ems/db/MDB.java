@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
+import java.util.ArrayList;
+
 import ems.user.Student;
 
 public class MDB {
@@ -98,13 +100,18 @@ public class MDB {
 	/**
 	 * 添加新老师
 	 * 
-	 * @param 
-	 * @param 
+	 * @param id 工号
+	 * @param pw 密码
+	 * @param name 姓名
+	 * @param age 年龄
+	 * @param gender 性别
+	 * @param dept 院系
+	 * @param major 专业
 	 * 
-	 * @return 
+	 * @return true 添加成功; false 添加失败
 	 */
 	public boolean addNewTeacher(String id, String pw, String name, 
-			String age, String gender, String Dept, String major)
+			String age, String gender, String dept, String major)
 	{
 		String sql_user_insert = generateInsertSQL("User", 3);
 		String sql_teacher_insert = generateInsertSQL("Teachers", 6);
@@ -126,7 +133,7 @@ public class MDB {
 	        preStmt.setString(2, name);
 	        preStmt.setInt(3, Integer.parseInt(age));
 	        preStmt.setString(4, gender);
-	        preStmt.setString(5, Dept);
+	        preStmt.setString(5, dept);
 	        preStmt.setString(6, major);
 	        
 	        preStmt.executeUpdate();
@@ -143,8 +150,21 @@ public class MDB {
 	    }
 	}
 	
+	/**
+	 * 添加新老师
+	 * 
+	 * @param id 学号
+	 * @param pw 密码
+	 * @param name 姓名
+	 * @param age 年龄
+	 * @param gender 性别
+	 * @param dept 院系
+	 * @param major 专业
+	 * 
+	 * @return true 添加成功; false 添加失败
+	 */
 	public boolean addNewStudent(String id, String pw, String name, 
-			String age, String gender, String Dept, String major)
+			String age, String gender, String dept, String major)
 	{
 		String sql_user_insert = generateInsertSQL("User", 3);
 		String sql_teacher_insert = generateInsertSQL("Students", 6);
@@ -166,7 +186,7 @@ public class MDB {
 	        preStmt.setString(2, name);
 	        preStmt.setInt(3, Integer.parseInt(age));
 	        preStmt.setString(4, gender);
-	        preStmt.setString(5, Dept);
+	        preStmt.setString(5, dept);
 	        preStmt.setString(6, major);
 	        
 	        preStmt.executeUpdate();
@@ -181,6 +201,46 @@ public class MDB {
 	        e.printStackTrace();  
 	        return false;
 	    }
+	}
+	
+	/**
+	 * 获取一个学生可以选择的课程
+	 * 
+	 * @param id 待查询学生的学号
+	 * 
+	 * @return 可选课程的信息([课程代码] 课程名 学期 所属院系 教师姓名)
+	 */
+	public ArrayList<String> getStuAvailableCourse(){
+		ArrayList<String> ret = new ArrayList<String>();
+		
+		try{
+			Connection conn = getConnection();
+			
+			Statement stmt = conn.createStatement();
+			ResultSet res = stmt.executeQuery("select Cname, Cid, Term, Cdepart, Tname from Courses, Teachers where Courses.Tid = Teachers.Tid;");
+						
+			while(res.next()){
+				String db_Cname = res.getString(1);
+				String db_Cid = res.getString(2);
+				String db_Term = res.getString(3);
+				String db_Cdept = res.getString(4);
+				String db_Tname = res.getString(5);
+				
+				String item = "[" + db_Cid + "] " + db_Cname + " " + db_Term + " " 
+					+ db_Cdept + " " + db_Tname;
+				
+				ret.add(item);
+			}
+			
+			res.close();
+			stmt.close();
+			conn.close();
+			
+			return ret;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public String generateInsertSQL(String tbl, int num_items)

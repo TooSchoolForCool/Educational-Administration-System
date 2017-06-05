@@ -2,6 +2,8 @@ package ems.db;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import ems.db.DBHelper;
@@ -34,4 +36,12 @@ public class MDBTest {
 		assertEquals(true, mdb.addNewStudent("20170001", "123456", "Zeyu", "22", "ÄÐ", "ÐÅÏ¢Ôº", "CS"));
 	}
 	
+	@Test
+	public void testGetStuAvailableCourse() {
+		ArrayList<String> list = mdb.getStuAvailableCourse();
+		
+		for(int i = 0;i < list.size(); i++){
+            System.out.println(list.get(i));
+        }
+	}
 }
