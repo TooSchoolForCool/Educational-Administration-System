@@ -45,7 +45,7 @@ public class JP_Stu_Info extends JPanel implements ActionListener{
 		add(bt);
 		
 		ta_result = new JTextArea();
-		ta_result.setBounds(33, 80, 544, 388);
+		ta_result.setBounds(33, 80, 544, 329);
 		ta_result.setFont(UIutils.font);
 		ta_result.setText("???");
 		add(ta_result);

@@ -38,19 +38,19 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 		setFont(UIutils.font);
 		
 		JButton bt1 = new JButton("¼ìË÷");
-		bt1.setBounds(51, 26, 113, 27);
+		bt1.setBounds(20, 15, 120, 30);
 		bt1.setFont(UIutils.font);
 		bt1.addActionListener(this);
 		add(bt1);
 		
 		JButton bt2 = new JButton("Ñ¡¿Î");
-		bt2.setBounds(51, 85, 113, 27);
+		bt2.setBounds(20, 60, 120, 30);
 		bt2.setFont(UIutils.font);
 		bt2.addActionListener(this);
 		add(bt2);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(250, 28, 408, 431);
+		scrollPane.setBounds(154, 15, 460, 380);
 		add(scrollPane);
 		
 		
