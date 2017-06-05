@@ -39,9 +39,11 @@ public class JF_Student extends JFrame implements ActionListener,ChangeListener{
 		TP_ctrl.addChangeListener(this);
 		TP_ctrl.setFont(UIutils.font);
 		
-		TP_ctrl.add("学生管理", new JP_Stu_SetPassword("学生管理"));		
+		
+		TP_ctrl.add("个人信息", new JP_Stu_Info("个人信息"));
 		TP_ctrl.add("课程管理", new JP_Stu_Course("课程管理"));		
-		TP_ctrl.add("考试管理", new JP_Stu_Exam("考试管理"));
+		TP_ctrl.add("考试信息", new JP_Stu_Exam("考试信息"));
+		TP_ctrl.add("密码管理", new JP_Stu_SetPassword("密码管理"));
 		
 		
 		Container container = this.getContentPane();
