@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import ems.user.Student;
-import ems.user.User;
 
 public class MDB {
 	// JDBC数据库驱动
@@ -31,11 +30,10 @@ public class MDB {
 	 * @param[in] DB_server_addr 数据库服务器地址
 	 * @param[in] DB_name 使用的数据库名称
 	 * @param[in] DB_username 登录用户名
-	 * @param[in] DB_password 登录密码	 
+	 * @param[in] DB_password 登录密码
 	 */
 	public MDB(String DB_driver, String DB_type, String DB_server_addr, String DB_name, 
-		String DB_username, String DB_password)
-	{
+		String DB_username, String DB_password){
 		DB_driver_ = DB_driver;
 		DB_type_= DB_type;
 		DB_server_addr_ = DB_server_addr;
@@ -66,24 +64,21 @@ public class MDB {
 	 * 
 	 * @return 用户类型：管理员(0), 教师(1), 学生(2), 密码错误/用户不存在(-1)
 	 */
-	public int login(String username,String password)
-	{
+	public int login(String username,String password){
 		try{
 			Connection conn = getConnection();
 			
 			Statement stmt = conn.createStatement();
-			ResultSet res = stmt.executeQuery("select * from Users;");
+			ResultSet res = stmt.executeQuery("select * from User;");
 			
 			int ret = -1;
 			
-			while(res.next())
-			{
+			while(res.next()){
 				String db_username = res.getString(1);
 				String db_password = res.getString(2);
 				String db_user_type = res.getString(3);
 				
-				if(db_username.equals(username) && db_password.equals(password))
-				{
+				if(db_username.equals(username) && db_password.equals(password)){
 					ret = Integer.parseInt(db_user_type);
 					break;
 				}
@@ -92,7 +87,6 @@ public class MDB {
 			res.close();
 			stmt.close();
 			conn.close();
-			
 			return ret;
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -100,16 +94,12 @@ public class MDB {
 		}
 	}
 	
-	
-	
-	private Connection getConnection() throws SQLException
-	{
+	private Connection getConnection() throws SQLException{
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:" + DB_type_ + "://" + DB_server_addr_ + "/" + DB_name_ + "?useSSL=false";
 			return DriverManager.getConnection(url, DB_username_, DB_password_);
-		}
-		catch(Exception e){
+		}catch(Exception e){
 			e.printStackTrace();
 			return null;
 		}

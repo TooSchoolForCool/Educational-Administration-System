@@ -4,19 +4,19 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import ems.utils.Utils;
+import ems.utils.UIutils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class JPanel_Stu_Course_re extends JPanel implements ActionListener{
+public class JP_Stu_Exam_QueryInfo extends JPanel implements ActionListener{
 	private JTextField oripassword;
 	private JTextField newpassword;
 	private JTextField newpassword2;
 	
-	public JPanel_Stu_Course_re(String name){
+	public JP_Stu_Exam_QueryInfo(String name){
 		init(name);
 		
 	}
@@ -25,11 +25,11 @@ public class JPanel_Stu_Course_re extends JPanel implements ActionListener{
 		setLayout(null);
 		setName(name);
 		setBounds(0, 0, 700, 500);
-		setFont(Utils.font);
+		setFont(UIutils.font);
 		
-		JLabel label = new JLabel("ÍË¿Î½çÃæ");
-		label.setBounds(34, 32, 90, 30);
-		label.setFont(Utils.font);
+		JLabel label = new JLabel(getName());
+		label.setBounds(34, 32, 200, 30);
+		label.setFont(UIutils.font);
 		add(label);
 //		
 //		JLabel label1 = new JLabel("Ô­ÃÜÂë");

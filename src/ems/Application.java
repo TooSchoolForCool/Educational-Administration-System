@@ -6,40 +6,44 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import ems.db.DBHelper;
 import ems.db.MDB;
-import ems.ui.JFrame_Login;
-import ems.ui.JFrame_Student;
-import ems.ui.JFrame_Login.OnLoginSuccessListener;
+import ems.ui.JF_Login;
+import ems.ui.JF_Student;
+import ems.ui.JF_Teacher;
+import ems.ui.JF_Login.OnLoginSuccessListener;
+import ems.ui.JF_Manager;
 import ems.user.Student;
-import ems.user.User;
 
 public class Application implements OnLoginSuccessListener{
 	
 	private static Application mapplication;
 	private MDB mdb;
 	
-	User user;
+	private String LoginID;
 	
-	private static JFrame_Login JFlogin;
-	private static JFrame_Student JFStudent;
+	private static JF_Login JFlogin;
+	private static JF_Student JFStudent;
+	private static JF_Teacher JFTeacher;
+	private static JF_Manager JFManager;
 	
 	public static void main(String[] args) {
 		mapplication = new Application();
 		
 //		setUIFont();
 		
-		JFlogin = new JFrame_Login();
+		JFlogin = new JF_Login();
 		JFlogin.setOnLoginSuccessListener(mapplication);
 		
 	}
 	
 	public Application(){
-		mdb = new MDB("com.mysql.jdbc.Driver", "mysql", "localhost:3306", "HNU_DB", "root", "admin8888");
-//		mdb = new MDB("com.mysql.jdbc.Driver", "mysql", "45.78.60.183:28324", "HNU_DB", "root", "Admin@2017");
+		mdb = new MDB(DBHelper.DB_DRIVER, DBHelper.DB_TYPE, 
+				DBHelper.DB_SERVER_ADD, DBHelper.DB_NAME, 
+				DBHelper.DB_USERNAME, DBHelper.DB_PASSWORD);
 		this.setLookNFeel();
 	}
 	
-
 	public static Application getApplication(){
 		return mapplication;
 	}
@@ -48,31 +52,35 @@ public class Application implements OnLoginSuccessListener{
 		return mdb;
 	}
 	
+	public void setLoginID(String LoginID){
+		this.LoginID = LoginID;
+	}
+	
+	public String getLoginID(){
+		return this.LoginID;
+	}
+	
 	@Override
-	public void OnLoginSuccess(User user) {
-		if(user!=null){
-			this.user = user;
-			JFlogin.setVisible(false);
+	public void OnLoginSuccess(int Authoritiy) {
+		
+		JFlogin.setVisible(false);
+		
+		switch(Authoritiy){
+		case 0:
 			
-			switch(this.user.getIdentity()){
-			case User.IDEN_STUDENT:
-				
-				JFStudent = new JFrame_Student((Student)this.user);
-				
-				break;
-			case User.IDEN_TEACHER:
-				
-				
-				break;
-			case User.IDEN_MANAGER:
-				
-				
-				break;
-			}
+			JFManager = new JF_Manager(LoginID);
 			
+			break;
+		case 1:
 			
-		}else{
-			JOptionPane.showMessageDialog(null, "µÇÂ¼Ê§°Ü£¡", "ÌáÊ¾",JOptionPane.ERROR_MESSAGE);
+			JFTeacher = new JF_Teacher(LoginID);
+			
+			break;
+		case 2:
+			
+			JFStudent = new JF_Student(LoginID);
+			
+			break;
 		}
 	}
 	
