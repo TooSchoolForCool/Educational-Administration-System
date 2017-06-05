@@ -1,8 +1,6 @@
 package ems.ui;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
@@ -14,21 +12,19 @@ import ems.utils.UIutils;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.DefaultListModel;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 
 public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 	
-	
+	CheckableItem[] items;
+	JScrollPane scrollPane;
+	JList jlist;
 	
 	public JP_Stu_Course_Add(String name){
 		init(name);
@@ -41,43 +37,29 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 		setBounds(0, 0, 700, 500);
 		setFont(UIutils.font);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(74, 28, 113, 27);
-		add(btnNewButton);
+		JButton bt1 = new JButton("检索");
+		bt1.setBounds(51, 26, 113, 27);
+		bt1.setFont(UIutils.font);
+		bt1.addActionListener(this);
+		add(bt1);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(261, 28, 408, 431);
+		JButton bt2 = new JButton("选课");
+		bt2.setBounds(51, 85, 113, 27);
+		bt2.setFont(UIutils.font);
+		bt2.addActionListener(this);
+		add(bt2);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(250, 28, 408, 431);
 		add(scrollPane);
 		
-		String[] strs = {"一","二","三","四","五"};
-		
-		CheckableItem[] items = createData(strs);
-		JList list = new JList(items);
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		CheckListCellRenderer renderer = new CheckListCellRenderer();
-		list.setCellRenderer(renderer);
-		scrollPane.setViewportView(list);
-//		scrollPane.add(list);
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(74, 82, 113, 27);
-		add(btnNewButton_1);
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-
 		
 	}
 	
-	private CheckableItem[] createData(String[] strs) { 
+	private CheckableItem[] createItems(String[] strs) { 
 	    int n = strs.length; 
 	    CheckableItem[] items = new CheckableItem[n]; 
 	    for (int i = 0; i < n; i++) { 
@@ -86,7 +68,7 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 	    return items; 
 	  } 
 
-	class CheckableItem { 
+	class CheckableItem {
 		private boolean isSelected; 
 		private String str; 
 		public CheckableItem(String str) { 
@@ -117,18 +99,9 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 			
 			setBackground(isSelected ? list.getSelectionBackground() : list.getBackground()); 
 			setForeground(isSelected ? list.getSelectionForeground() : list.getForeground()); 
-			
 			setText(value.toString());
 			CheckableItem data = (CheckableItem) value;
 			setSelected(data.isSelected());
-			
-			
-			
-			
-//			System.out.println(index+" "+list.getSelectedIndex());
-//			setSelected(isSelected);
-			
-			
 			setFont(list.getFont());
 			setBorder((cellHasFocus) ? UIManager.getBorder("List.focusCellHighlightBorder") : m_noFocusBorder);
 			
@@ -141,12 +114,15 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 		public CheckListener(JList list){
 			this.list = list;
 		}
-		
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			if(list.getSelectedIndex()<0){
+				return;
+			}
 			CheckableItem tmp = (CheckableItem)list.getSelectedValue();
+			tmp.setSelected(!tmp.isSelected());
+			list.repaint();
 		}
-
 		@Override
 		public void mouseEntered(MouseEvent e) {}
 		@Override
@@ -159,6 +135,28 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getActionCommand().equals("检索")){
+			//调用函数获得String数组如strs
+			String[] strs = {"一","二","三","四","五"};
+			items = createItems(strs);
+			
+			//添加到滚动界面
+			jlist = new JList(items);
+			jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			jlist.setCellRenderer(new CheckListCellRenderer());
+			jlist.addMouseListener(new CheckListener(jlist));
+			scrollPane.setViewportView(jlist);
+			
+			
+			
+		}else if(e.getActionCommand().equals("选课")){
+			//遍历items获得已选的
+			
+			
+			
+		}
+		
 		
 	}
 }
