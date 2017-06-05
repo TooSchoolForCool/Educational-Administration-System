@@ -27,7 +27,7 @@ public class JF_Teacher extends JFrame implements ActionListener,ChangeListener{
 	}
 	
 	private void init() {
-		this.setTitle("教务管理系统-管理员");
+		this.setTitle("教务管理系统-教师");
 		this.setBounds(100, 100, 700, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
