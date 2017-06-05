@@ -1,6 +1,7 @@
 package ems.ui;
 
 import javax.swing.JPanel;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -8,17 +9,22 @@ import ems.utils.UIutils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 
+import ems.db.*;
+import ems.*;
 public class JP_Stu_SetPassword extends JPanel implements ActionListener{
+	
 	private JTextField oripassword;
 	private JTextField newpassword;
 	private JTextField newpassword2;
-	
-	public JP_Stu_SetPassword(String name){
+	private JButton  BT_add;
+	private String id;
+	public JP_Stu_SetPassword(String name,String id){
 		init(name);
-		
+		this.id=id;
 	}
 	
 	public void init(String name){
@@ -53,7 +59,7 @@ public class JP_Stu_SetPassword extends JPanel implements ActionListener{
 		newpassword2.setFont(UIutils.font);
 		add(newpassword2);
 		
-		JButton  BT_add = new JButton("确定修改");
+		 BT_add = new JButton("确定修改");
 		BT_add.setBounds(254, 179, 120, 30);
 		BT_add.setFont(UIutils.font);
 		BT_add.setFocusable(false);
@@ -62,8 +68,28 @@ public class JP_Stu_SetPassword extends JPanel implements ActionListener{
 		BT_add.addActionListener(this);
 	}
 	
-
+	/**
+	 * 修改密码接口
+	 * 点击修改按钮，比较新旧密码，传参，进行修改
+	 */
 	public void actionPerformed(ActionEvent e) {
-		
+		if(e.getSource()== BT_add){
+//			System.out.println("确认修改");
+			boolean a=oripassword.getText().equals(newpassword.getText());
+			boolean b=newpassword.getText().equals(newpassword2.getText());
+			if(a){System.out.println("与原密码相同");}
+			else{
+				if(b){
+					Application ap=new Application();
+					ap=ap.getApplication();
+					MDB mdb=ap.getMDB();
+				try {
+					mdb.update(id,oripassword.getText(),newpassword.getText());
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
 	}
+}
 }

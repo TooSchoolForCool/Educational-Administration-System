@@ -17,13 +17,13 @@ public class JF_Student extends JFrame implements ActionListener,ChangeListener{
 	Student student;
 	
 	private JTabbedPane TP_ctrl;
-	
+	private String LoginID;
 	public JF_Student(String LoginID) {
 		
 		//this.student = s;//根据LoginID在数据库查表从MDB获取Student对象
 		
 		//System.out.println(this.student.toString());
-		
+		this.LoginID=LoginID;
 		init();
 	}
 	
@@ -43,7 +43,7 @@ public class JF_Student extends JFrame implements ActionListener,ChangeListener{
 		TP_ctrl.add("个人信息", new JP_Stu_Info("个人信息"));
 		TP_ctrl.add("课程管理", new JP_Stu_Course("课程管理"));		
 		TP_ctrl.add("考试信息", new JP_Stu_Exam("考试信息"));
-		TP_ctrl.add("密码管理", new JP_Stu_SetPassword("密码管理"));
+		TP_ctrl.add("密码管理", new JP_Stu_SetPassword("密码管理",LoginID));
 		
 		
 		Container container = this.getContentPane();
