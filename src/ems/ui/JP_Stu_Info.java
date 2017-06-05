@@ -1,5 +1,6 @@
 package ems.ui;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -36,19 +37,20 @@ public class JP_Stu_Info extends JPanel implements ActionListener{
 		add(lb);
 		
 		tf_id = new JTextField();
-		tf_id.setBounds(121, 24, 255, 30);
+		tf_id.setBounds(97, 24, 383, 30);
 		tf_id.setFont(UIutils.font);
 		add(tf_id);
 		
 		JButton bt = new JButton("¼ìË÷");
-		bt.setBounds(424, 23, 153, 30);
+		bt.setBounds(533, 24, 153, 30);
 		bt.setFont(UIutils.font);
 		bt.addActionListener(this);
 		add(bt);
 		
 		ta_result = new JTextArea();
-		ta_result.setBounds(33, 80, 544, 329);
-		ta_result.setFont(UIutils.font);
+		ta_result.setBounds(14, 80, 672, 329);
+//		
+		ta_result.setFont(new Font("Î¢ÈíÑÅºÚ",Font.PLAIN,18));
 		ta_result.setEditable(false);
 		add(ta_result);
 		

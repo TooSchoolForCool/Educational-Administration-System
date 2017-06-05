@@ -21,10 +21,8 @@ public class JP_Stu_SetPassword extends JPanel implements ActionListener{
 	private JTextField newpassword;
 	private JTextField newpassword2;
 	private JButton  BT_add;
-	private String id;
-	public JP_Stu_SetPassword(String name,String id){
+	public JP_Stu_SetPassword(String name){
 		init(name);
-		this.id=id;
 	}
 	
 	public void init(String name){
@@ -84,6 +82,7 @@ public class JP_Stu_SetPassword extends JPanel implements ActionListener{
 					ap=ap.getApplication();
 					MDB mdb=ap.getMDB();
 				try {
+					String id = ap.getLoginID();
 					mdb.update(id,oripassword.getText(),newpassword.getText());
 				} catch (SQLException e1) {
 					e1.printStackTrace();
