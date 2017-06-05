@@ -7,4 +7,3 @@ create table User(LoginID varchar(20),PassWord varchar(20),Authoritiy int);
 insert into User values('manager','manager',0);
 insert into User values('teacher','teacher',1);
 insert into User values('student','student',2);
-

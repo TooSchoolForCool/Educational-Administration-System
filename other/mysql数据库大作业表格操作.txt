@@ -20,14 +20,13 @@ create table Teacher
     Tage numeric(3),
     Tsex char(2),
     Taca varchar(20),
-    Tdepart varchar(20),
-    Tauth numeric(2));
+    Tdepart varchar(20));
 
-insert into teacher values('20140801','王东',50,'男','信息院','CS',1);
+insert into teacher values('20140801','王东',50,'男','信息院','CS');
 
-insert into teacher values('20140802','李肯立',47,'男','信息院','IS',0);
+insert into teacher values('20140802','李肯立',47,'男','信息院','IS');
 
-insert into teacher values('20140803','肖德贵',45,'男','信息院','CS',1);
+insert into teacher values('20140803','肖德贵',45,'男','信息院','CS');
 
 学生表
 create table student
