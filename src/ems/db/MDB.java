@@ -149,7 +149,7 @@ public class MDB {
 	private Connection getConnection() throws SQLException {
 		try {
 			Class.forName(DB_driver_);
-			String url = "jdbc:" + DB_type_ + "://" + DB_server_addr_ + "/" + DB_name_ + "?characterEncoding=utf-8";
+			String url = "jdbc:" + DB_type_ + "://" + DB_server_addr_ + "/" + DB_name_ + "?characterEncoding=utf-8;useSSL=false";
 			return DriverManager.getConnection(url, DB_username_, DB_password_);
 		} catch (Exception e) {
 			e.printStackTrace();
