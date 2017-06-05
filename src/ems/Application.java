@@ -35,6 +35,7 @@ public class Application implements OnLoginSuccessListener{
 	
 	public Application(){
 		mdb = new MDB("com.mysql.jdbc.Driver", "mysql", "localhost:3306", "HNU_DB", "root", "admin8888");
+//		mdb = new MDB("com.mysql.jdbc.Driver", "mysql", "45.78.60.183:28324", "HNU_DB", "root", "Admin@2017");
 		this.setLookNFeel();
 	}
 	
