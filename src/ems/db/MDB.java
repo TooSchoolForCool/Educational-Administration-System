@@ -105,9 +105,31 @@ public class MDB {
 		}
 	}
 	
-	public boolean addNewCourse4Student(String sid, String cid, String term)
+	public boolean addNewCourse4Student(String sid, String course_info)
 	{
+		String[] c_infos = course_info.split(" ");
+		String sql = generateInsertSQL("SC", 4);
 		
+		try {
+			Connection conn = getConnection();
+	    	
+	    	// User table
+	    	PreparedStatement preStmt = conn.prepareStatement(sql);  
+	        preStmt.setString(1, sid);  
+	        preStmt.setString(2, c_infos[0]);
+	        preStmt.setString(3, c_infos[2]);
+	        preStmt.setNull(4, Types.INTEGER);
+	        
+	        preStmt.executeUpdate();
+			
+			preStmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 
 	/**
@@ -137,7 +159,7 @@ public class MDB {
 				String db_Cdept = res.getString(4);
 				String db_Tname = res.getString(5);
 
-				String result = "[" + db_Cid + "] " + db_Cname + " " + db_Term + " " + db_Cdept + " " + db_Tname;
+				String result = db_Cid + " " + db_Cname + " " + db_Term + " " + db_Cdept + " " + db_Tname;
 
 				arraylist.add(result);
 			}
@@ -162,6 +184,7 @@ public class MDB {
 			return null;
 		}
 	}
+	
 	/**
 	 * 密码修改函数，应该再传入账号
 	 * @param oripass	原密码
@@ -342,9 +365,9 @@ public class MDB {
 				String db_Cdept = res.getString(4);
 				String db_Tname = res.getString(5);
 				
-				String item = "[" + db_Cid + "] " + db_Cname + " " + db_Term + " " 
+				String item = db_Cid + " " + db_Cname + " " + db_Term + " " 
 					+ db_Cdept + " " + db_Tname;
-				
+			
 				ret.add(item);
 			}
 			
