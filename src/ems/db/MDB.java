@@ -105,9 +105,31 @@ public class MDB {
 		}
 	}
 	
-	public boolean addNewCourse4Student(String sid, String cid, String term)
+	public boolean addNewCourse4Student(String sid, String course_info)
 	{
-		return false;
+		String[] c_infos = course_info.split(" ");
+		String sql = generateInsertSQL("SC", 4);
+		
+		try {
+			Connection conn = getConnection();
+	    	
+	    	// User table
+	    	PreparedStatement preStmt = conn.prepareStatement(sql);  
+	        preStmt.setString(1, sid);  
+	        preStmt.setString(2, c_infos[0]);
+	        preStmt.setString(3, c_infos[2]);
+	        preStmt.setNull(4, Types.INTEGER);
+	        
+	        preStmt.executeUpdate();
+			
+			preStmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 
 	/**
@@ -137,7 +159,7 @@ public class MDB {
 				String db_Cdept = res.getString(4);
 				String db_Tname = res.getString(5);
 
-				String result = "[" + db_Cid + "] " + db_Cname + " " + db_Term + " " + db_Cdept + " " + db_Tname;
+				String result = db_Cid + " " + db_Cname + " " + db_Term + " " + db_Cdept + " " + db_Tname;
 
 				arraylist.add(result);
 			}
@@ -162,19 +184,28 @@ public class MDB {
 			return null;
 		}
 	}
+	
 	/**
 	 * 密码修改函数，应该再传入账号
 	 * @param oripass	原密码
 	 * @param newpass	新密码
 	 * @throws SQLException
 	 */
-	public void update(String id,String oripass,String newpass) throws SQLException{
+	public boolean updatePassword(String id, String newpass) throws SQLException{
 		Connection conn = getConnection();
-		sql="update User set Password='"+newpass+"'where Password='"+oripass+"' and LoginID='"+id+"'";
+		
+		sql = "update User set Password='"+newpass+"'where LoginID='"+ id + "'";
 		Statement stmt = conn.createStatement();
 		int result = stmt.executeUpdate(sql);// executeQuery会返回结果的集合，否则返回空值
-		if(result==-1){System.out.println("修改失败");}
-		else{System.out.println("修改成功");}
+		
+		if(result == 1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	/**
 	 * 学生信息查询函数
@@ -182,37 +213,32 @@ public class MDB {
 	 * @param jta	文本区
 	 * @throws SQLException
 	 */
-	public void queryStudentInfo(String Sid,JTextArea jta) throws SQLException{
+	public String queryStudentInfo(String Sid) throws SQLException{
+		String ret = "";
+		
 		Connection conn = getConnection();
+		
 		//现在参数只有一个Sid，后面做教师查询可以把表名也拿出来做参数
 		sql="select * from Students where Sid='"+Sid+"'";
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(sql);// executeQuery会返回结果的集合，否则返回空值
+		ResultSet rs = stmt.executeQuery(sql); // executeQuery会返回结果的集合，否则返回空值
+		
 		// 获取列名  
         ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();  
+        
+        if( !rs.next() )
+        	return "查无此人";
+        
         for (int i = 0; i < metaData.getColumnCount(); i++) {  
             // rs数据下标从1开始  
-            String columnName = metaData.getColumnName(i + 1);  
-            int type = metaData.getColumnType(i + 1);  
-            if (Types.INTEGER == type) {  
-            } else if (Types.VARCHAR == type) {  
-            }  
-            jta.append(columnName + "\t");
-            System.out.print(columnName + "\t");  
-        }  
-        jta.append("\r\n");
-        System.out.println();  
-        // 获取数据  
-        while (rs.next()) {  
-            for (int i = 0; i < metaData.getColumnCount(); i++) {  
-                // rs数据下标从1开始  
-            	jta.append(rs.getString(i + 1) + "\t");
-                System.out.print(rs.getString(i + 1) + "\t");  
-            }  
-            jta.append("\r\n");
-            System.out.println();
-        }  
+            String columnName = metaData.getColumnName(i + 1);
+            
+            ret += columnName + ": " +  rs.getString(i + 1) + "\r\n";
+        }
+        
+        return ret;
 	}
+	
 	/**
 	 * 添加新老师
 	 * 
@@ -342,9 +368,9 @@ public class MDB {
 				String db_Cdept = res.getString(4);
 				String db_Tname = res.getString(5);
 				
-				String item = "[" + db_Cid + "] " + db_Cname + " " + db_Term + " " 
+				String item = db_Cid + " " + db_Cname + " " + db_Term + " " 
 					+ db_Cdept + " " + db_Tname;
-				
+			
 				ret.add(item);
 			}
 			

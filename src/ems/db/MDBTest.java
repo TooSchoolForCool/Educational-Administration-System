@@ -53,4 +53,9 @@ public class MDBTest {
             System.out.println(list.get(i));
         }
 	}
+	
+	@Test
+	public void testAddNewCourse4Student() {
+		assertEquals(true, mdb.addNewCourse4Student("2014080101", "0803 asd 2017S CS ÍõÎå"));
+	}
 }

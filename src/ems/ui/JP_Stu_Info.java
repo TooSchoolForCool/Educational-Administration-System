@@ -20,9 +20,11 @@ public class JP_Stu_Info extends JPanel implements ActionListener{
 	private JTextArea ta_result;
 	private JTextField tf_id;
 	
-	public JP_Stu_Info(String name){
+	String stuid;
+	
+	public JP_Stu_Info(String name, String stuid){
 		init(name);
-		
+		this.stuid = stuid;
 	}
 	
 	public void init(String name){
@@ -31,26 +33,25 @@ public class JP_Stu_Info extends JPanel implements ActionListener{
 		setBounds(0, 0, 700, 500);
 		setFont(UIutils.font);
 		
-		JLabel lb = new JLabel("Ñ§ºÅ");
-		lb.setBounds(33, 24, 72, 30);
-		lb.setFont(UIutils.font);
-		add(lb);
+//		JLabel lb = new JLabel("Ñ§ºÅ");
+//		lb.setBounds(33, 24, 72, 30);
+//		lb.setFont(UIutils.font);
+//		add(lb);
 		
-		tf_id = new JTextField();
-		tf_id.setBounds(97, 24, 383, 30);
-		tf_id.setFont(UIutils.font);
-		add(tf_id);
+//		tf_id = new JTextField();
+//		tf_id.setBounds(97, 24, 383, 30);
+//		tf_id.setFont(UIutils.font);
+//		add(tf_id);
 		
 		JButton bt = new JButton("¼ìË÷");
-		bt.setBounds(533, 24, 153, 30);
+		bt.setBounds(424, 23, 153, 30);
 		bt.setFont(UIutils.font);
 		bt.addActionListener(this);
 		add(bt);
 		
 		ta_result = new JTextArea();
-		ta_result.setBounds(14, 80, 672, 329);
-//		
-		ta_result.setFont(new Font("Î¢ÈíÑÅºÚ",Font.PLAIN,18));
+		ta_result.setBounds(33, 80, 544, 329);
+		ta_result.setFont(UIutils.font);
 		ta_result.setEditable(false);
 		add(ta_result);
 		
@@ -60,11 +61,11 @@ public class JP_Stu_Info extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand()=="¼ìË÷"){
-			Application ap=new Application();
-			ap=ap.getApplication();
+			Application ap = Application.getApplication();
 			MDB mdb=ap.getMDB();
 			try {
-				mdb.queryStudentInfo(tf_id.getText(),ta_result);
+				String info = mdb.queryStudentInfo(stuid);
+				ta_result.setText(info);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}

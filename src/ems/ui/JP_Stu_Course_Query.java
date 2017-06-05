@@ -21,7 +21,6 @@ public class JP_Stu_Course_Query extends JPanel implements ActionListener{
 	
 	public JP_Stu_Course_Query(String name){
 		init(name);
-		
 	}
 	
 	public void init(String name){

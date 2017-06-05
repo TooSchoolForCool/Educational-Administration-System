@@ -25,13 +25,15 @@ import javax.swing.JList;
 
 public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 	
+	String stuid;
+	
 	CheckableItem[] items;
 	JScrollPane scrollPane;
 	JList jlist;
 	
-	public JP_Stu_Course_Add(String name){
+	public JP_Stu_Course_Add(String name,String stuid){
 		init(name);
-		
+		this.stuid = stuid;
 	}
 	
 	public void init(String name){
