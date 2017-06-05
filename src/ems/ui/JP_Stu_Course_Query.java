@@ -1,20 +1,23 @@
 package ems.ui;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
-import ems.utils.UIutils;
-
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import ems.utils.UIutils;
 
 public class JP_Stu_Course_Query extends JPanel implements ActionListener{
-	private JTextField oripassword;
-	private JTextField newpassword;
-	private JTextField newpassword2;
+	private JTextField sid;
+//	private JTextField newpassword;
+//	private JTextField newpassword2;
+	private  JTextArea textAreaOutput;
 	
 	public JP_Stu_Course_Query(String name){
 		init(name);
@@ -27,44 +30,36 @@ public class JP_Stu_Course_Query extends JPanel implements ActionListener{
 		setBounds(0, 0, 700, 500);
 		setFont(UIutils.font);
 		
-		JLabel label = new JLabel(getName());
-		label.setBounds(34, 32, 90, 30);
-		label.setFont(UIutils.font);
-		add(label);
-//		
-//		JLabel label1 = new JLabel("原密码");
-//		label1.setBounds(34, 32, 60, 30);
-//		label1.setFont(Utils.font);
-//		add(label1);
-//		JLabel label2 = new JLabel("新密码");
-//		label2.setBounds(34, 75, 60, 30);
-//		label2.setFont(Utils.font);
-//		add(label2);
-//		JLabel label3 = new JLabel("新密码");
-//		label3.setBounds(34, 118, 60, 30);
-//		label3.setFont(Utils.font);
-//		add(label3);
-//		
-//		oripassword = new JTextField();
-//		oripassword.setBounds(108, 32, 266, 30);
-//		oripassword.setFont(Utils.font);
-//		add(oripassword);
-//		newpassword = new JTextField();
-//		newpassword.setBounds(108, 75, 266, 30);
-//		newpassword.setFont(Utils.font);
-//		add(newpassword);
-//		newpassword2 = new JTextField();
-//		newpassword2.setBounds(108, 118, 266, 30);
-//		newpassword2.setFont(Utils.font);
-//		add(newpassword2);
-//		
-//		JButton  BT_add = new JButton("确定修改");
-//		BT_add.setBounds(254, 179, 120, 30);
-//		BT_add.setFont(Utils.font);
-//		BT_add.setFocusable(false);
-//		add(BT_add);
+		JLabel label1 = new JLabel("学号");
+		label1.setBounds(34, 32, 60, 30);
+		label1.setFont(UIutils.font);
+		add(label1);
 		
-//		BT_add.addActionListener(this);
+		sid = new JTextField();
+		sid.setBounds(108, 32, 266, 30);
+		sid.setFont(UIutils.font);
+		add(sid);
+		
+		JButton  BT_add = new JButton("查询");
+		BT_add.setBounds(108, 80, 120, 30);
+		BT_add.setFont(UIutils.font);
+		BT_add.setFocusable(false);
+		add(BT_add);
+		
+		
+		JScrollPane scrop = new JScrollPane();  //滚动窗口
+		scrop.setBounds(34,120,400,300);
+		add(scrop);
+				
+		textAreaOutput = new JTextArea("显示查课", 20, 43);
+		textAreaOutput.setBackground(Color.WHITE);
+		textAreaOutput.setSelectedTextColor(Color.BLACK);
+		textAreaOutput.setLineWrap(true);        //激活自动换行功能 
+		textAreaOutput.setWrapStyleWord(true);            // 激活断行不断字功能
+		scrop.setViewportView(textAreaOutput);
+		
+		BT_add.addActionListener(this);
+
 	}
 	
 

@@ -79,7 +79,8 @@ public class Application implements OnLoginSuccessListener{
 		case 2:
 			
 			JFStudent = new JF_Student(LoginID);
-			
+			String test="2014080101";
+			mdb.SelectStudentCourse(test);
 			break;
 		}
 	}
