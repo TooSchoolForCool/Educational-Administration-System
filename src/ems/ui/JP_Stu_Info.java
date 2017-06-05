@@ -19,9 +19,11 @@ public class JP_Stu_Info extends JPanel implements ActionListener{
 	private JTextArea ta_result;
 	private JTextField tf_id;
 	
-	public JP_Stu_Info(String name){
+	String stuid;
+	
+	public JP_Stu_Info(String name, String stuid){
 		init(name);
-		
+		this.stuid = stuid;
 	}
 	
 	public void init(String name){
@@ -30,15 +32,15 @@ public class JP_Stu_Info extends JPanel implements ActionListener{
 		setBounds(0, 0, 700, 500);
 		setFont(UIutils.font);
 		
-		JLabel lb = new JLabel("学号");
-		lb.setBounds(33, 24, 72, 30);
-		lb.setFont(UIutils.font);
-		add(lb);
+//		JLabel lb = new JLabel("学号");
+//		lb.setBounds(33, 24, 72, 30);
+//		lb.setFont(UIutils.font);
+//		add(lb);
 		
-		tf_id = new JTextField();
-		tf_id.setBounds(121, 24, 255, 30);
-		tf_id.setFont(UIutils.font);
-		add(tf_id);
+//		tf_id = new JTextField();
+//		tf_id.setBounds(121, 24, 255, 30);
+//		tf_id.setFont(UIutils.font);
+//		add(tf_id);
 		
 		JButton bt = new JButton("检索");
 		bt.setBounds(424, 23, 153, 30);
@@ -51,18 +53,17 @@ public class JP_Stu_Info extends JPanel implements ActionListener{
 		ta_result.setFont(UIutils.font);
 		ta_result.setEditable(false);
 		add(ta_result);
-		
-		
 	}
 	
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand()=="检索"){
-			Application ap=new Application();
-			ap=ap.getApplication();
+			Application ap = Application.getApplication();
 			MDB mdb=ap.getMDB();
+			
 			try {
-				mdb.queryStudentInfo(tf_id.getText(),ta_result);
+				String info = mdb.queryStudentInfo(stuid);
+				ta_result.setText(info);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -70,8 +71,5 @@ public class JP_Stu_Info extends JPanel implements ActionListener{
 		//查询个人信息调用函数返回字符串
 		//tf_id.getText()
 		//textArea.setText(String);
-		
-		
-		
 	}
 }

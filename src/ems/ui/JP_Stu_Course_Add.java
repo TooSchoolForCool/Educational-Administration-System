@@ -34,7 +34,6 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 	public JP_Stu_Course_Add(String name,String stuid){
 		init(name);
 		this.stuid = stuid;
-		
 	}
 	
 	public void init(String name){

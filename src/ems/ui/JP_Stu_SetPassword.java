@@ -38,8 +38,8 @@ public class JP_Stu_SetPassword extends JPanel implements ActionListener{
 //		label1.setBounds(34, 32, 60, 30);
 //		label1.setFont(UIutils.font);
 //		add(label1);
-		JLabel label2 = new JLabel("新密码");
-		label2.setBounds(114, 75, 60, 30);
+		JLabel label2 = new JLabel("请输入新密码");
+		label2.setBounds(54, 75, 120, 30);
 		label2.setFont(UIutils.font);
 		add(label2);
 		JLabel label3 = new JLabel("再次确认新密码");
@@ -78,9 +78,9 @@ public class JP_Stu_SetPassword extends JPanel implements ActionListener{
 			boolean b = newpassword.getText().equals(newpassword2.getText());
 			
 			if(b){
-				Application ap=new Application();
-				ap=ap.getApplication();
-				MDB mdb=ap.getMDB();
+				Application ap = new Application();
+				ap = ap.getApplication();
+				MDB mdb = ap.getMDB();
 				try {
 					if(mdb.updatePassword(id, newpassword.getText()) == true)
 						JOptionPane.showMessageDialog(null, "密码修改成功", "提示", JOptionPane.INFORMATION_MESSAGE);

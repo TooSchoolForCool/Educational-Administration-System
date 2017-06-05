@@ -213,37 +213,32 @@ public class MDB {
 	 * @param jta	文本区
 	 * @throws SQLException
 	 */
-	public void queryStudentInfo(String Sid,JTextArea jta) throws SQLException{
+	public String queryStudentInfo(String Sid) throws SQLException{
+		String ret = "";
+		
 		Connection conn = getConnection();
+		
 		//现在参数只有一个Sid，后面做教师查询可以把表名也拿出来做参数
 		sql="select * from Students where Sid='"+Sid+"'";
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(sql);// executeQuery会返回结果的集合，否则返回空值
+		ResultSet rs = stmt.executeQuery(sql); // executeQuery会返回结果的集合，否则返回空值
+		
 		// 获取列名  
         ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();  
+        
+        if( !rs.next() )
+        	return "查无此人";
+        
         for (int i = 0; i < metaData.getColumnCount(); i++) {  
             // rs数据下标从1开始  
-            String columnName = metaData.getColumnName(i + 1);  
-            int type = metaData.getColumnType(i + 1);  
-            if (Types.INTEGER == type) {  
-            } else if (Types.VARCHAR == type) {  
-            }  
-            jta.append(columnName + "\t");
-            System.out.print(columnName + "\t");  
-        }  
-        jta.append("\r\n");
-        System.out.println();  
-        // 获取数据  
-        while (rs.next()) {  
-            for (int i = 0; i < metaData.getColumnCount(); i++) {  
-                // rs数据下标从1开始  
-            	jta.append(rs.getString(i + 1) + "\t");
-                System.out.print(rs.getString(i + 1) + "\t");  
-            }  
-            jta.append("\r\n");
-            System.out.println();
-        }  
+            String columnName = metaData.getColumnName(i + 1);
+            
+            ret += columnName + ": " +  rs.getString(i + 1) + "\r\n";
+        }
+        
+        return ret;
 	}
+	
 	/**
 	 * 添加新老师
 	 * 
