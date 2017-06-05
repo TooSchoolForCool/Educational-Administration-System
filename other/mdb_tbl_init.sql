@@ -1,6 +1,6 @@
 use MDB;
 
--- ç”¨æˆ·ç™»å½•ä¿¡æ¯è¡¨
+-- ÓÃ»§µÇÂ¼ĞÅÏ¢±í
 create table User
 (
     LoginID varchar(20),
@@ -12,7 +12,7 @@ insert into User values('admin','admin',0);
 insert into User values('teacher','teacher',1);
 insert into User values('student','student',2);
 
--- æ•™å¸ˆè¡¨
+-- ½ÌÊ¦±í
 create table Teachers
 (   
     Tid varchar(20),
@@ -24,13 +24,13 @@ create table Teachers
     constraint pk_name primary key (Tid)
 );
 
-insert into Teachers values('T20140801','å¼ ä¸‰', 50,'ç”·','ä¿¡æ¯é™¢','CS');
+insert into Teachers values('T20140801','ÕÅÈı', 50,'ÄĞ','ĞÅÏ¢Ôº','CS');
 
-insert into Teachers values('T20140802','æå››', 47,'ç”·','ä¿¡æ¯é™¢','IS');
+insert into Teachers values('T20140802','ÀîËÄ', 47,'ÄĞ','ĞÅÏ¢Ôº','IS');
 
-insert into Teachers values('T20140803','ç‹äº”', 45,'ç”·','ä¿¡æ¯é™¢','CS');
+insert into Teachers values('T20140803','ÍõÎå', 45,'ÄĞ','ĞÅÏ¢Ôº','CS');
 
--- å­¦ç”Ÿè¡¨
+-- Ñ§Éú±í
 create table Students
 (   
     Sid varchar(20),
@@ -42,13 +42,13 @@ create table Students
     constraint pk_name primary key (Sid)
 );
 
-insert into Students values('2014080101','é»„æ³½è£•',21,'ç”·','ä¿¡æ¯é™¢','CS');
+insert into Students values('2014080101','»ÆÔóÔ£',21,'ÄĞ','ĞÅÏ¢Ôº','CS');
 
-insert into Students values('2014080102','ç§¦å·',20,'ç”·','ä¿¡æ¯é™¢','IS');
+insert into Students values('2014080102','ÇØ´¨',20,'ÄĞ','ĞÅÏ¢Ôº','IS');
 
-insert into Students values('2014080103','æå§—å¦®',20,'å¥³','ä¿¡æ¯é™¢','CS');
+insert into Students values('2014080103','Àîæ©Äİ',20,'Å®','ĞÅÏ¢Ôº','CS');
 
--- è¯¾ç¨‹ä¿¡æ¯è¡¨
+-- ¿Î³ÌĞÅÏ¢±í
 create table Courses
 (
     Cname varchar(40),
@@ -60,13 +60,13 @@ create table Courses
     foreign key(Tid) references Teachers(Tid)
 );
 
-insert into Courses values('æ•°æ®åº“åŸç†','0801', '2017S', 'CS', 'T20140801');
+insert into Courses values('Êı¾İ¿âÔ­Àí','0801', '2017S', 'CS', 'T20140801');
 
-insert into Courses values('ä¿¡æ¯å®‰å…¨åŸç†','0802', '2017S', 'IS', 'T20140802');
+insert into Courses values('ĞÅÏ¢°²È«Ô­Àí','0802', '2017S', 'IS', 'T20140802');
 
-insert into Courses values('è®¡ç®—æœºç½‘ç»œ','0803', '2017S', 'CS', 'T20140803');
+insert into Courses values('¼ÆËã»úÍøÂç','0803', '2017S', 'CS', 'T20140803');
 
--- å­¦ç”Ÿé€‰è¯¾è¡¨SC
+-- Ñ§ÉúÑ¡¿Î±íSC
 create table SC
 (   
     Sid varchar(20),
@@ -86,7 +86,7 @@ insert into SC values('2014080102','0802','2017S', NULL);
 
 insert into SC values('2014080103','0803','2017S', NULL);
 
--- è¯¾ç¨‹æ—¶é—´è¡¨CT
+-- ¿Î³ÌÊ±¼ä±íCT
 create table CT
 (
     Cid varchar(20),
@@ -97,13 +97,13 @@ create table CT
     foreign key(Cid) references Courses(Cid)
 );
 
-insert into CT values('0801', '2017S', 'æ¯å‘¨ä¸€/å‘¨ä¸‰-8:00','ä¸­206');
+insert into CT values('0801', '2017S', 'Ã¿ÖÜÒ»/ÖÜÈı-8:00','ÖĞ206');
 
-insert into CT values('0802', '2017S', 'æ¯å‘¨ä¸€/å‘¨ä¸‰-14:30','å¤401');
+insert into CT values('0802', '2017S', 'Ã¿ÖÜÒ»/ÖÜÈı-14:30','¸´401');
 
-insert into CT values('0803', '2017S', 'æ¯å‘¨äºŒ/å‘¨å››-8:00','ä¸­206');
+insert into CT values('0803', '2017S', 'Ã¿ÖÜ¶ş/ÖÜËÄ-8:00','ÖĞ206');
 
--- å­¦ç”Ÿå­¦æœŸè¡¨StudentTerm
+-- Ñ§ÉúÑ§ÆÚ±íStudentTerm
 create table ST
 (
     Sid varchar(20),
