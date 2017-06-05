@@ -58,7 +58,7 @@ public class JP_Stu_Course_Query extends JPanel implements ActionListener{
 		scrop.setViewportView(textAreaOutput);
 		
 		BT_add.addActionListener(this);
-
+		
 	}
 	
 

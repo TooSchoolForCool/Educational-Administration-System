@@ -25,15 +25,12 @@ import javax.swing.JList;
 
 public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 	
-	String stuid;
-	
 	CheckableItem[] items;
 	JScrollPane scrollPane;
 	JList jlist;
 	
-	public JP_Stu_Course_Add(String name,String stuid){
+	public JP_Stu_Course_Add(String name){
 		init(name);
-		this.stuid = stuid;
 	}
 	
 	public void init(String name){
@@ -149,11 +146,12 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		
+		Application application = Application.getApplication();
+		MDB mdb = application.getMDB();
+		String id = application.getLoginID();
 		if(e.getActionCommand().equals("检索")){
 			//调用函数获得String数组如strs
-			Application application = Application.getApplication();
-			MDB mdb = application.getMDB();
+			
 			
 			ArrayList<String> tmp = mdb.getStuAvailableCourse();
 			for(String s:tmp){
@@ -174,10 +172,13 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 		}else if(e.getActionCommand().equals("选课")){
 			//遍历items获得已选的
 			
-			
-			
+			for(CheckableItem item:items){
+				if(item.isSelected){
+					System.out.println(item.toString());
+					mdb.addNewCourse4Student(id, item.toString());
+				}
+			}
 		}
-		
 		
 	}
 }

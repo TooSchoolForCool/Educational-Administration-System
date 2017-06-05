@@ -22,10 +22,8 @@ public class JP_Stu_SetPassword extends JPanel implements ActionListener{
 	private JTextField newpassword;
 	private JTextField newpassword2;
 	private JButton  BT_add;
-	private String id;
-	public JP_Stu_SetPassword(String name,String id){
+	public JP_Stu_SetPassword(String name){
 		init(name);
-		this.id=id;
 	}
 	
 	public void init(String name){
@@ -78,9 +76,9 @@ public class JP_Stu_SetPassword extends JPanel implements ActionListener{
 			boolean b = newpassword.getText().equals(newpassword2.getText());
 			
 			if(b){
-				Application ap = new Application();
-				ap = ap.getApplication();
+				Application ap = Application.getApplication();
 				MDB mdb = ap.getMDB();
+				String id = ap.getLoginID();
 				try {
 					if(mdb.updatePassword(id, newpassword.getText()) == true)
 						JOptionPane.showMessageDialog(null, "密码修改成功", "提示", JOptionPane.INFORMATION_MESSAGE);
@@ -95,5 +93,4 @@ public class JP_Stu_SetPassword extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(null, "两次输入的密码不同", "提示", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-}
 }
