@@ -191,13 +191,21 @@ public class MDB {
 	 * @param newpass	新密码
 	 * @throws SQLException
 	 */
-	public void update(String id,String oripass,String newpass) throws SQLException{
+	public boolean updatePassword(String id, String newpass) throws SQLException{
 		Connection conn = getConnection();
-		sql="update User set Password='"+newpass+"'where Password='"+oripass+"' and LoginID='"+id+"'";
+		
+		sql = "update User set Password='"+newpass+"'where LoginID='"+ id + "'";
 		Statement stmt = conn.createStatement();
 		int result = stmt.executeUpdate(sql);// executeQuery会返回结果的集合，否则返回空值
-		if(result==-1){System.out.println("修改失败");}
-		else{System.out.println("修改成功");}
+		
+		if(result == 1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	/**
 	 * 学生信息查询函数
