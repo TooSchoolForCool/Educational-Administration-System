@@ -37,6 +37,15 @@ public class MDBTest {
 	}
 	
 	@Test
+	public void testGetStudentEnrolledCourses() {
+		ArrayList<String> list = mdb.getStudentEnrolledCourses("2014080101");
+		
+		for(int i = 0;i < list.size(); i++){
+            System.out.println(list.get(i));
+        }
+	}
+	
+	@Test
 	public void testGetStuAvailableCourse() {
 		ArrayList<String> list = mdb.getStuAvailableCourse();
 		

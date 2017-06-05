@@ -62,7 +62,7 @@ public class JP_Stu_Info extends JPanel implements ActionListener{
 			ap=ap.getApplication();
 			MDB mdb=ap.getMDB();
 			try {
-				mdb.query(tf_id.getText(),ta_result);
+				mdb.queryStudentInfo(tf_id.getText(),ta_result);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
