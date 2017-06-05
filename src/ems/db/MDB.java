@@ -104,41 +104,42 @@ public class MDB {
 			return 0;
 		}
 	}
+	
+	public boolean addNewCourse4Student(String sid, String cid, String term)
+	{
+		
+	}
 
 	/**
-	 * 学生查课
+	 * 获取学生选课信息
 	 * 
-	 * @param Sid
-	 *            学生学号
+	 * @param Sid 学生学号
+	 * 
 	 * @return 返回String ArrayList查课结果
 	 */
-	public ArrayList<String> SelectStudentCourse(String Sid) {
+	public ArrayList<String> getStudentEnrolledCourses(String id) {
 		ArrayList<String> arraylist = new ArrayList<String>();
+		
 		try {
-
 			Connection conn = getConnection();
 
 			Statement stmt = conn.createStatement();
+			
 			ResultSet res = stmt.executeQuery(
-					"select Cname,courses.Cid,courses.Term,Cdepart,Tid from courses,sc where sc.cid=courses.cid;");
+					"select courses.Cid, Cname, courses.Term, Cdepart, Tname from courses, "
+					+ "sc, Teachers where " + id + " = sc.Sid AND sc.cid=courses.cid AND courses.Tid = Teachers.Tid;");
 
 			while (res.next()) {
 				// Retrieve by column name
-				String cname = res.getString("Cname");
-				String cid = res.getString("Cid");
-				String term = res.getString("Term");
-				String cdepart = res.getString("Cdepart");
-				String tid = res.getString("Tid");
+				String db_Cid = res.getString(1);
+				String db_Cname = res.getString(2);
+				String db_Term = res.getString(3);
+				String db_Cdept = res.getString(4);
+				String db_Tname = res.getString(5);
 
-				String result = cid + " " + cname + " " + term + " " + cdepart + " " + tid;
+				String result = "[" + db_Cid + "] " + db_Cname + " " + db_Term + " " + db_Cdept + " " + db_Tname;
 
 				arraylist.add(result);
-				// // Display values
-				// System.out.print("Cname: " + cname);
-				// System.out.print(", Cid: " + cid);
-				// System.out.print(", Term: " + term);
-				// System.out.print(", Cdepart: " + cdepart);
-				// System.out.println(", Tid: " + tid);
 			}
 			res.close();
 			stmt.close();
@@ -147,6 +148,7 @@ public class MDB {
 			e.printStackTrace();
 			return null;
 		}
+		
 		return arraylist;
 	}
 
@@ -180,37 +182,37 @@ public class MDB {
 	 * @param jta	文本区
 	 * @throws SQLException
 	 */
-		public void query(String Sid,JTextArea jta) throws SQLException{
-			Connection conn = getConnection();
-			//现在参数只有一个Sid，后面做教师查询可以把表名也拿出来做参数
-			sql="select * from Students where Sid='"+Sid+"'";
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);// executeQuery会返回结果的集合，否则返回空值
-			// 获取列名  
-	        ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();  
-	        for (int i = 0; i < metaData.getColumnCount(); i++) {  
-	            // rs数据下标从1开始  
-	            String columnName = metaData.getColumnName(i + 1);  
-	            int type = metaData.getColumnType(i + 1);  
-	            if (Types.INTEGER == type) {  
-	            } else if (Types.VARCHAR == type) {  
-	            }  
-	            jta.append(columnName + "\t");
-	            System.out.print(columnName + "\t");  
-	        }  
-	        jta.append("\r\n");
-	        System.out.println();  
-	        // 获取数据  
-	        while (rs.next()) {  
-	            for (int i = 0; i < metaData.getColumnCount(); i++) {  
-	                // rs数据下标从1开始  
-	            	jta.append(rs.getString(i + 1) + "\t");
-	                System.out.print(rs.getString(i + 1) + "\t");  
-	            }  
-	            jta.append("\r\n");
-	            System.out.println();
-	        }  
-		}
+	public void queryStudentInfo(String Sid,JTextArea jta) throws SQLException{
+		Connection conn = getConnection();
+		//现在参数只有一个Sid，后面做教师查询可以把表名也拿出来做参数
+		sql="select * from Students where Sid='"+Sid+"'";
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);// executeQuery会返回结果的集合，否则返回空值
+		// 获取列名  
+        ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();  
+        for (int i = 0; i < metaData.getColumnCount(); i++) {  
+            // rs数据下标从1开始  
+            String columnName = metaData.getColumnName(i + 1);  
+            int type = metaData.getColumnType(i + 1);  
+            if (Types.INTEGER == type) {  
+            } else if (Types.VARCHAR == type) {  
+            }  
+            jta.append(columnName + "\t");
+            System.out.print(columnName + "\t");  
+        }  
+        jta.append("\r\n");
+        System.out.println();  
+        // 获取数据  
+        while (rs.next()) {  
+            for (int i = 0; i < metaData.getColumnCount(); i++) {  
+                // rs数据下标从1开始  
+            	jta.append(rs.getString(i + 1) + "\t");
+                System.out.print(rs.getString(i + 1) + "\t");  
+            }  
+            jta.append("\r\n");
+            System.out.println();
+        }  
+	}
 	/**
 	 * 添加新老师
 	 * 
