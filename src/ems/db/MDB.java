@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 import ems.user.Student;
 
@@ -94,9 +95,110 @@ public class MDB {
 		}
 	}
 	
+	/**
+	 * 添加新老师
+	 * 
+	 * @param 
+	 * @param 
+	 * 
+	 * @return 
+	 */
+	public boolean addNewTeacher(String id, String pw, String name, 
+			String age, String gender, String Dept, String major)
+	{
+		String sql_user_insert = generateInsertSQL("User", 3);
+		String sql_teacher_insert = generateInsertSQL("Teachers", 6);
+		
+	    try{
+	    	Connection conn = getConnection();
+	    	
+	    	// User table
+	    	PreparedStatement preStmt = conn.prepareStatement(sql_user_insert);  
+	        preStmt.setString(1, id);  
+	        preStmt.setString(2, pw);
+	        preStmt.setInt(3, 1);
+	        
+	        preStmt.executeUpdate(); 
+	        
+	        // Teachers table
+	        preStmt = conn.prepareStatement(sql_teacher_insert);
+	        preStmt.setString(1, id);
+	        preStmt.setString(2, name);
+	        preStmt.setInt(3, Integer.parseInt(age));
+	        preStmt.setString(4, gender);
+	        preStmt.setString(5, Dept);
+	        preStmt.setString(6, major);
+	        
+	        preStmt.executeUpdate();
+	        
+	        preStmt.close();
+			conn.close();
+			
+	        return true;
+	    }  
+	    catch (SQLException e)  
+	    {  
+	        e.printStackTrace();  
+	        return false;
+	    }
+	}
+	
+	public boolean addNewStudent(String id, String pw, String name, 
+			String age, String gender, String Dept, String major)
+	{
+		String sql_user_insert = generateInsertSQL("User", 3);
+		String sql_teacher_insert = generateInsertSQL("Students", 6);
+		
+	    try{
+	    	Connection conn = getConnection();
+	    	
+	    	// User table
+	    	PreparedStatement preStmt = conn.prepareStatement(sql_user_insert);  
+	        preStmt.setString(1, id);  
+	        preStmt.setString(2, pw);
+	        preStmt.setInt(3, 2);
+	        
+	        preStmt.executeUpdate(); 
+	        
+	        // Teachers table
+	        preStmt = conn.prepareStatement(sql_teacher_insert);
+	        preStmt.setString(1, id);
+	        preStmt.setString(2, name);
+	        preStmt.setInt(3, Integer.parseInt(age));
+	        preStmt.setString(4, gender);
+	        preStmt.setString(5, Dept);
+	        preStmt.setString(6, major);
+	        
+	        preStmt.executeUpdate();
+	        
+	        preStmt.close();
+			conn.close();
+			
+	        return true;
+	    }  
+	    catch (SQLException e)  
+	    {  
+	        e.printStackTrace();  
+	        return false;
+	    }
+	}
+	
+	public String generateInsertSQL(String tbl, int num_items)
+	{
+		String ret = "insert into " + tbl + " values(";
+		
+		for(int i = 0; i < num_items - 1; i++)
+		{
+			ret += "?,";
+		}
+		ret += "?)";
+		
+		return ret;
+	}
+	
 	private Connection getConnection() throws SQLException{
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName(DB_driver_);
 			String url = "jdbc:" + DB_type_ + "://" + DB_server_addr_ + "/" + DB_name_ + "?useSSL=false";
 			return DriverManager.getConnection(url, DB_username_, DB_password_);
 		}catch(Exception e){

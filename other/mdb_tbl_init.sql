@@ -18,7 +18,7 @@ create table Teachers
     Tid varchar(20),
     Tname varchar(20),
     Tage numeric(3),
-    Tsex char(2),
+    Tsex char(10),
     Taca varchar(20),
     Tdepart varchar(20),
     constraint pk_name primary key (Tid)

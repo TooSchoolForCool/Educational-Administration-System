@@ -18,4 +18,20 @@ public class MDBTest {
 		assertEquals(1, mdb.login("teacher", "teacher"));
 		assertEquals(2, mdb.login("student", "student"));
 	}
+	
+	@Test
+	public void testGenerateInsertSQL() {
+		mdb.generateInsertSQL("Teachers", 5);
+	}
+	
+	@Test
+	public void testAddNewTeacher() {
+		assertEquals(true, mdb.addNewTeacher("T20170001", "123456", "Zeyu", "22", "男", "信息院", "CS"));
+	}
+	
+	@Test
+	public void testAddNewStudent() {
+		assertEquals(true, mdb.addNewStudent("20170001", "123456", "Zeyu", "22", "男", "信息院", "CS"));
+	}
+	
 }
