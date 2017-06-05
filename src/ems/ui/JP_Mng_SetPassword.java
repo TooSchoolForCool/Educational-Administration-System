@@ -12,9 +12,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class JP_Mng_SetPassword extends JPanel implements ActionListener{
-//	private JTextField oripassword;
-//	private JTextField newpassword;
-//	private JTextField newpassword2;
+	private JTextField tf_id;
+	private JTextField tf_newpwd;
+	
+	
 	
 	public JP_Mng_SetPassword(String name){
 		init(name);
@@ -26,50 +27,42 @@ public class JP_Mng_SetPassword extends JPanel implements ActionListener{
 		setName(name);
 		setBounds(0, 0, 700, 500);
 		setFont(UIutils.font);
-
-		JLabel label = new JLabel(getName());
-		label.setBounds(34, 32, 90, 30);
-		label.setFont(UIutils.font);
-		add(label);
+		
+		JLabel Label1 = new JLabel("用户ID");
+		Label1.setBounds(80, 60, 72, 30);
+		Label1.setFont(UIutils.font);
+		add(Label1);
+		
+		tf_id = new JTextField();
+		tf_id.setBounds(170, 60, 350, 30);
+		tf_id.setFont(UIutils.font);
+		add(tf_id);
+		
+		JLabel Label2 = new JLabel("新密码");
+		Label2.setBounds(80, 110, 72, 30);
+		Label2.setFont(UIutils.font);
+		add(Label2);
+		
+		tf_newpwd = new JTextField();
+		tf_newpwd.setBounds(170, 110, 350, 30);
+		tf_newpwd.setFont(UIutils.font);
+		add(tf_newpwd);
+		
+		JButton bt = new JButton("修改/重置");
+		bt.setBounds(270, 160, 150, 30);
+		bt.setFont(UIutils.font);
+		bt.addActionListener(this);
+		add(bt);
 		
 		
-//		JLabel label1 = new JLabel("原密码");
-//		label1.setBounds(34, 32, 60, 30);
-//		label1.setFont(UIutils.font);
-//		add(label1);
-//		JLabel label2 = new JLabel("新密码");
-//		label2.setBounds(34, 75, 60, 30);
-//		label2.setFont(UIutils.font);
-//		add(label2);
-//		JLabel label3 = new JLabel("新密码");
-//		label3.setBounds(34, 118, 60, 30);
-//		label3.setFont(UIutils.font);
-//		add(label3);
-//		
-//		oripassword = new JTextField();
-//		oripassword.setBounds(108, 32, 266, 30);
-//		oripassword.setFont(UIutils.font);
-//		add(oripassword);
-//		newpassword = new JTextField();
-//		newpassword.setBounds(108, 75, 266, 30);
-//		newpassword.setFont(UIutils.font);
-//		add(newpassword);
-//		newpassword2 = new JTextField();
-//		newpassword2.setBounds(108, 118, 266, 30);
-//		newpassword2.setFont(UIutils.font);
-//		add(newpassword2);
-//		
-//		JButton  BT_add = new JButton("确定修改");
-//		BT_add.setBounds(254, 179, 120, 30);
-//		BT_add.setFont(UIutils.font);
-//		BT_add.setFocusable(false);
-//		add(BT_add);
-//		
-//		BT_add.addActionListener(this);
+		
 	}
 	
 
 	public void actionPerformed(ActionEvent e) {
+		String ID = tf_id.getText();
+		String newPassword = tf_newpwd.getText();
+		
 		
 	}
 }
