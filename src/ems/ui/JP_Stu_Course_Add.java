@@ -7,6 +7,8 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import ems.Application;
+import ems.db.MDB;
 import ems.utils.UIutils;
 
 import java.awt.Component;
@@ -14,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -22,12 +25,15 @@ import javax.swing.JList;
 
 public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 	
+	String stuid;
+	
 	CheckableItem[] items;
 	JScrollPane scrollPane;
 	JList jlist;
 	
-	public JP_Stu_Course_Add(String name){
+	public JP_Stu_Course_Add(String name,String stuid){
 		init(name);
+		this.stuid = stuid;
 		
 	}
 	
@@ -66,7 +72,16 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 	      items[i] = new CheckableItem(strs[i]); 
 	    } 
 	    return items; 
-	  } 
+	}
+	
+	private CheckableItem[] createItems(ArrayList<String> strs) { 
+	    int n = strs.size(); 
+	    CheckableItem[] items = new CheckableItem[n]; 
+	    for (int i = 0; i < n; i++) { 
+	      items[i] = new CheckableItem(strs.get(i)); 
+	    } 
+	    return items; 
+	}
 
 	class CheckableItem {
 		private boolean isSelected; 
@@ -138,8 +153,15 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 		
 		if(e.getActionCommand().equals("检索")){
 			//调用函数获得String数组如strs
-			String[] strs = {"一","二","三","四","五"};
-			items = createItems(strs);
+			Application application = Application.getApplication();
+			MDB mdb = application.getMDB();
+			
+			ArrayList<String> tmp = mdb.getStuAvailableCourse();
+			for(String s:tmp){
+				System.out.println(s);
+			}
+			
+			items = createItems(tmp);
 			
 			//添加到滚动界面
 			jlist = new JList(items);
