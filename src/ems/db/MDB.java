@@ -107,7 +107,7 @@ public class MDB {
 	
 	public boolean addNewCourse4Student(String sid, String cid, String term)
 	{
-		
+		return false;
 	}
 
 	/**
