@@ -5,7 +5,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import java.sql.PreparedStatement;
+
+import ems.user.Student;
+>>>>>>> branch 'master' of https://github.com/TooSchoolForCool/Educational-Administration-System.git
 
 public class MDB {
 	// JDBC数据库驱动
@@ -94,6 +100,7 @@ public class MDB {
 			return 0;
 		}
 	}
+<<<<<<< HEAD
 
 	/**
 	 * 学生查课
@@ -144,6 +151,114 @@ public class MDB {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:" + DB_type_ + "://" + DB_server_addr_ + "/" + DB_name_ + "?characterEncoding=utf-8";
+=======
+	
+	/**
+	 * 添加新老师
+	 * 
+	 * @param 
+	 * @param 
+	 * 
+	 * @return 
+	 */
+	public boolean addNewTeacher(String id, String pw, String name, 
+			String age, String gender, String Dept, String major)
+	{
+		String sql_user_insert = generateInsertSQL("User", 3);
+		String sql_teacher_insert = generateInsertSQL("Teachers", 6);
+		
+	    try{
+	    	Connection conn = getConnection();
+	    	
+	    	// User table
+	    	PreparedStatement preStmt = conn.prepareStatement(sql_user_insert);  
+	        preStmt.setString(1, id);  
+	        preStmt.setString(2, pw);
+	        preStmt.setInt(3, 1);
+	        
+	        preStmt.executeUpdate(); 
+	        
+	        // Teachers table
+	        preStmt = conn.prepareStatement(sql_teacher_insert);
+	        preStmt.setString(1, id);
+	        preStmt.setString(2, name);
+	        preStmt.setInt(3, Integer.parseInt(age));
+	        preStmt.setString(4, gender);
+	        preStmt.setString(5, Dept);
+	        preStmt.setString(6, major);
+	        
+	        preStmt.executeUpdate();
+	        
+	        preStmt.close();
+			conn.close();
+			
+	        return true;
+	    }  
+	    catch (SQLException e)  
+	    {  
+	        e.printStackTrace();  
+	        return false;
+	    }
+	}
+	
+	public boolean addNewStudent(String id, String pw, String name, 
+			String age, String gender, String Dept, String major)
+	{
+		String sql_user_insert = generateInsertSQL("User", 3);
+		String sql_teacher_insert = generateInsertSQL("Students", 6);
+		
+	    try{
+	    	Connection conn = getConnection();
+	    	
+	    	// User table
+	    	PreparedStatement preStmt = conn.prepareStatement(sql_user_insert);  
+	        preStmt.setString(1, id);  
+	        preStmt.setString(2, pw);
+	        preStmt.setInt(3, 2);
+	        
+	        preStmt.executeUpdate(); 
+	        
+	        // Teachers table
+	        preStmt = conn.prepareStatement(sql_teacher_insert);
+	        preStmt.setString(1, id);
+	        preStmt.setString(2, name);
+	        preStmt.setInt(3, Integer.parseInt(age));
+	        preStmt.setString(4, gender);
+	        preStmt.setString(5, Dept);
+	        preStmt.setString(6, major);
+	        
+	        preStmt.executeUpdate();
+	        
+	        preStmt.close();
+			conn.close();
+			
+	        return true;
+	    }  
+	    catch (SQLException e)  
+	    {  
+	        e.printStackTrace();  
+	        return false;
+	    }
+	}
+	
+	public String generateInsertSQL(String tbl, int num_items)
+	{
+		String ret = "insert into " + tbl + " values(";
+		
+		for(int i = 0; i < num_items - 1; i++)
+		{
+			ret += "?,";
+		}
+		ret += "?)";
+		
+		return ret;
+	}
+	
+	private Connection getConnection() throws SQLException{
+		try{
+			Class.forName(DB_driver_);
+			String url = "jdbc:" + DB_type_ + "://" + DB_server_addr_ + "/" + DB_name_ + "?useSSL=false";
+>>>>>>> branch 'master' of https://github.com/TooSchoolForCool/Educational-Administration-System.git
 			return DriverManager.getConnection(url, DB_username_, DB_password_);
 		} catch (Exception e) {
 			e.printStackTrace();
