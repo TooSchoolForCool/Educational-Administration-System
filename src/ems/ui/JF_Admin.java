@@ -13,12 +13,12 @@ import javax.swing.event.ChangeListener;
 import ems.user.Teacher;
 import ems.utils.UIutils;
 
-public class JF_admin extends JFrame implements ActionListener,ChangeListener{
+public class JF_Admin extends JFrame implements ActionListener,ChangeListener{
 	Teacher teacher;
 	
 	private JTabbedPane TP_ctrl;
 	
-	public JF_admin(String LoginID) {
+	public JF_Admin(String LoginID) {
 		
 		//根据LoginID在数据库查表从MDB获取teacher对象
 		
