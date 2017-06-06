@@ -25,11 +25,6 @@ public class JP_Admin_Student_Query extends JPanel implements ActionListener{
 		setBounds(0, 0, 700, 500);
 		setFont(UIutils.font);
 		
-		JLabel label = new JLabel(getName());
-		label.setBounds(34, 32, 90, 30);
-		label.setFont(UIutils.font);
-		add(label);
-		
 		
 	}
 	

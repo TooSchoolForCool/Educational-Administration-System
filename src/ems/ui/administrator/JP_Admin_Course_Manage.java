@@ -11,10 +11,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class JP_Admin_Course_Update extends JPanel implements ActionListener{
+public class JP_Admin_Course_Manage extends JPanel implements ActionListener{
 	
 	
-	public JP_Admin_Course_Update(String name){
+	public JP_Admin_Course_Manage(String name){
 		init(name);
 		
 	}
