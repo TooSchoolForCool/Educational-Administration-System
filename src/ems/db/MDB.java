@@ -425,7 +425,7 @@ public class MDB {
 				String db_Tname = res.getString(6);
 				
 				String item = "[" + db_Term + " " + db_Cid + "] " + db_Cname + " " +  db_Tname
-						+ "\r\n" + db_Ctime + " " + db_Cplace;
+						+ " " + db_Ctime + " " + db_Cplace;
 				
 				ret.add(item);
 			}
