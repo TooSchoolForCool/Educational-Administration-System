@@ -14,8 +14,8 @@ public class MDBTest {
 	@Test
 	public void testLogin() {
 		assertEquals(0, mdb.login("admin", "admin"));
-		assertEquals(1, mdb.login("teacher", "teacher"));
-		assertEquals(2, mdb.login("student", "student"));
+		assertEquals(1, mdb.login("T20140801", "123"));
+		assertEquals(2, mdb.login("2014080101", "123"));
 	}
 	
 	@Test
@@ -83,6 +83,17 @@ public class MDBTest {
 	public void testAddNewCourse4Student() {
 		System.out.println("Add 2014080101 [0803]");
 		assertEquals(true, mdb.addNewCourse4Student("2014080101", "0803 asd 2017S CS ÍõÎå"));
+	}
+	
+	@Test
+	public void testGetTeacherClassInfo() {
+		ArrayList<String> list = mdb.getTeacherClassInfo("T20140801");
+		
+		System.out.println("----------------getTeacherClassInfo-------------");
+		for(int i = 0;i < list.size(); i++){
+            System.out.println(list.get(i));
+        }
+		System.out.println("------------------------------------------------");
 	}
 	
 	@Test

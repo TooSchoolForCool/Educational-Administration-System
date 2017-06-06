@@ -32,6 +32,7 @@ public class JP_Stu_Information extends JPanel implements ActionListener{
 	
 	public JP_Stu_Information(String name){
 		init(name);
+		stuid = Application.getApplication().getLoginID();
 	}
 	
 	public void init(String name){
@@ -120,7 +121,7 @@ public class JP_Stu_Information extends JPanel implements ActionListener{
 		if(e.getActionCommand()=="¼ìË÷"){
 			Application ap = Application.getApplication();
 			MDB mdb=ap.getMDB();
-			String stuid = ap.getLoginID();
+			
 			try {
 				String info = mdb.queryStudentInfo(stuid);
 				System.out.println(info);
