@@ -94,11 +94,13 @@ create table CT
     Term varchar(20),
     Ctime varchar(20),
     Cplace varchar(20),
-    constraint pk_name primary key (Cid, Term),
+    constraint pk_name primary key (Cid, Term, Ctime),
     foreign key(Cid) references Courses(Cid)
 );
 
 insert into CT values('0801', '2017S', '每周一/周三-8:00','中206');
+
+insert into CT values('0801', '2017S', '每周二/周四-10:00','中311');
 
 insert into CT values('0802', '2017S', '每周一/周三-14:30','复401');
 

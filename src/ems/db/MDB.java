@@ -149,7 +149,7 @@ public class MDB {
 	 * 
 	 * @param Sid 学生学号
 	 * 
-	 * @return 返回String ArrayList查课结果
+	 * @return 返回String ArrayList查课结果 (课程代码 课程名 学期 开课院系 授课老师)
 	 */
 	public ArrayList<String> getStudentEnrolledCourses(String id) {
 		ArrayList<String> arraylist = new ArrayList<String>();
@@ -383,6 +383,50 @@ public class MDB {
 				String item = db_Cid + " " + db_Cname + " " + db_Term + " " 
 					+ db_Cdept + " " + db_Tname;
 			
+				ret.add(item);
+			}
+			
+			res.close();
+			stmt.close();
+			conn.close();
+			
+			return ret;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * 获取一个学生上课时间和地点
+	 * 
+	 * @param id 待查询学生的学号
+	 * 
+	 * @return 可选课程的信息([学期 课程代码] 课程名 授课老师 \r\n 时间 地点)
+	 */
+	public ArrayList<String> getStuClassTimeAndPlace(String stuid){
+		ArrayList<String> ret = new ArrayList<String>();
+		
+		try{
+			Connection conn = getConnection();
+			
+			Statement stmt = conn.createStatement();
+			
+			ResultSet res = stmt.executeQuery("select sc.Cid, courses.Cname, courses.Term, CT.Ctime, "
+					+ "CT.Cplace, Teachers.Tname from sc, courses, CT, Teachers where sc.Sid = " 
+					+ stuid + " AND courses.Tid = Teachers.Tid AND CT.Cid = SC.Cid AND SC.Cid = Courses.Cid");
+						
+			while(res.next()){
+				String db_Cid = res.getString(1);
+				String db_Cname = res.getString(2);
+				String db_Term = res.getString(3);
+				String db_Ctime = res.getString(4);
+				String db_Cplace = res.getString(5);
+				String db_Tname = res.getString(6);
+				
+				String item = "[" + db_Term + " " + db_Cid + "] " + db_Cname + " " +  db_Tname
+						+ "\r\n" + db_Ctime + " " + db_Cplace;
+				
 				ret.add(item);
 			}
 			

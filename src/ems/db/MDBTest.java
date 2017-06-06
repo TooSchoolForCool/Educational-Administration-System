@@ -6,9 +6,6 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import ems.db.DBHelper;
-import ems.db.MDB;
-
 public class MDBTest {
 	public static MDB mdb = new MDB(DBHelper.DB_DRIVER, DBHelper.DB_TYPE, 
 			DBHelper.DB_SERVER_ADD, DBHelper.DB_NAME, 
@@ -40,22 +37,38 @@ public class MDBTest {
 	public void testGetStudentEnrolledCourses() {
 		ArrayList<String> list = mdb.getStudentEnrolledCourses("2014080101");
 		
+		System.out.println("---------testGetStudentEnrolledCourses----------");
 		for(int i = 0;i < list.size(); i++){
             System.out.println(list.get(i));
         }
+		System.out.println("------------------------------------------------");
 	}
 	
 	@Test
 	public void testGetStuAvailableCourse() {
 		ArrayList<String> list = mdb.getStuAvailableCourse();
 		
+		System.out.println("--------------testGetStuAvailableCourse---------");
 		for(int i = 0;i < list.size(); i++){
             System.out.println(list.get(i));
         }
+		System.out.println("------------------------------------------------");
 	}
 	
 	@Test
 	public void testAddNewCourse4Student() {
+		System.out.println("Add 2014080101 [0803]");
 		assertEquals(true, mdb.addNewCourse4Student("2014080101", "0803 asd 2017S CS ÍõÎå"));
+	}
+	
+	@Test
+	public void testGetStuClassTimeAndPlace() {
+		ArrayList<String> list = mdb.getStuClassTimeAndPlace("2014080101");
+		
+		System.out.println("--------------getStuClassTimeAndPlace-----------");
+		for(int i = 0;i < list.size(); i++){
+            System.out.println(list.get(i));
+        }
+		System.out.println("------------------------------------------------");
 	}
 }
