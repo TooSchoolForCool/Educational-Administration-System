@@ -1,4 +1,4 @@
-package ems.ui;
+package ems.ui.teacher;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;

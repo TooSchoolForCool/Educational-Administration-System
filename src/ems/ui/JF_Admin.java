@@ -10,6 +10,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import ems.ui.administrator.JP_Admin_Class;
+import ems.ui.administrator.JP_Admin_Course;
+import ems.ui.administrator.JP_Admin_Password;
+import ems.ui.administrator.JP_Admin_Privileges;
+import ems.ui.administrator.JP_Admin_Student;
+import ems.ui.administrator.JP_Admin_User_Add;
 import ems.user.Teacher;
 import ems.utils.UIutils;
 

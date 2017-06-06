@@ -1,4 +1,4 @@
-package ems.ui;
+package ems.ui.administrator;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -11,10 +11,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class JP_Tea_Course_QCourses extends JPanel implements ActionListener{
+public class JP_Admin_Student_Update extends JPanel implements ActionListener{
 	
 	
-	public JP_Tea_Course_QCourses(String name){
+	public JP_Admin_Student_Update(String name){
 		init(name);
 		
 	}

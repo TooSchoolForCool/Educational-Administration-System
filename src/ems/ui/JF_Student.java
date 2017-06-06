@@ -10,6 +10,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import ems.ui.student.JP_Stu_Course;
+import ems.ui.student.JP_Stu_Exam;
+import ems.ui.student.JP_Stu_Information;
+import ems.ui.student.JP_Stu_Password;
 import ems.user.Student;
 import ems.utils.UIutils;
 

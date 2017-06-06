@@ -1,4 +1,4 @@
-package ems.ui;
+package ems.ui.student;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

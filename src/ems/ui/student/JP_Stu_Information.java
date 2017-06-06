@@ -1,4 +1,4 @@
-package ems.ui;
+package ems.ui.student;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;

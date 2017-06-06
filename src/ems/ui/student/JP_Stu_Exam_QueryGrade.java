@@ -1,4 +1,4 @@
-package ems.ui;
+package ems.ui.student;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class JP_Stu_Exam_QueryInfo extends JPanel implements ActionListener{
+public class JP_Stu_Exam_QueryGrade extends JPanel implements ActionListener{
 	private JTextField oripassword;
 	private JTextField newpassword;
 	private JTextField newpassword2;
 	
-	public JP_Stu_Exam_QueryInfo(String name){
+	public JP_Stu_Exam_QueryGrade(String name){
 		init(name);
 		
 	}

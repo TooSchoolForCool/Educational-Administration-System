@@ -10,6 +10,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import ems.ui.teacher.JP_Tea_Course;
+import ems.ui.teacher.JP_Tea_Information;
+import ems.ui.teacher.JP_Tea_Password;
 import ems.user.Manager;
 import ems.utils.UIutils;
 
