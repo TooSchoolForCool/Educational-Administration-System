@@ -3,8 +3,10 @@ package ems.ui.administrator;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import ems.Application;
 import ems.utils.UIutils;
 
 import java.awt.event.ActionEvent;
@@ -130,9 +132,8 @@ public class JP_Admin_User_Add extends JPanel implements ActionListener{
 	
 
 	public void actionPerformed(ActionEvent e) {
-		String identity = cb1.getSelectedItem().toString();//身份
-		String ID = tf2.getText();                        //id
-//		System.out.println(ID);
+		String identity = cb1.getSelectedItem().toString();	//身份
+		String ID = tf2.getText();                        	//id
 		String pwd = tf3.getText();                        //密码
 		String name = tf4.getText();                       //姓名
 		String age = tf5.getText();                        //年龄
@@ -140,6 +141,20 @@ public class JP_Admin_User_Add extends JPanel implements ActionListener{
 		String aca = tf7.getText();                        //学院
 		String dep = tf8.getText();                        //专业
 		
+		boolean ret;
+		if(identity.equals("老师"))
+		{
+			ret = Application.getApplication().getMDB().addNewTeacher(ID, pwd, name, age, sex, aca, dep);
+			
+		}
+		else
+		{
+			ret = Application.getApplication().getMDB().addNewStudent(ID, pwd, name, age, sex, aca, dep);
+		}
 		
+		if(ret == true)
+			JOptionPane.showMessageDialog(null, "注册成功！", "提示",JOptionPane.INFORMATION_MESSAGE);
+		else
+			JOptionPane.showMessageDialog(null, "注册失败！", "提示",JOptionPane.ERROR_MESSAGE);
 	}
 }
