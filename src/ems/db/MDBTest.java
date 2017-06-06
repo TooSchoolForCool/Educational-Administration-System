@@ -86,6 +86,12 @@ public class MDBTest {
 	}
 	
 	@Test
+	public void testDropStuCourse() {
+		System.out.println("Drop 2014080101 2017S 0803");
+		assertEquals(true, mdb.dropStuCourse("2014080101", "0803", "2017S"));
+	}
+	
+	@Test
 	public void testGetStuClassTimeAndPlace() {
 		ArrayList<String> list = mdb.getStuClassTimeAndPlace("2014080101");
 		

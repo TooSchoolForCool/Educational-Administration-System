@@ -116,7 +116,8 @@ public class MDB {
 	    	
 			Statement stmt = conn.createStatement();
 			
-			ResultSet res = stmt.executeQuery("select * from sc where " + sid + " = Sid AND " + c_infos[0] + " = Cid;");
+			ResultSet res = stmt.executeQuery("select * from sc where '" + sid + "' = Sid AND '" + c_infos[0] + 
+					"' = Cid AND Term = '" + c_infos[2] + "';");
 			
 			if( !res.next() )
 			{
@@ -135,6 +136,48 @@ public class MDB {
 				ret = false;
 			
 			res.close();
+			conn.close();	
+		} catch (Exception e) {
+			e.printStackTrace();
+			ret = false;
+		}
+		
+		return ret;
+	}
+	
+	/**
+	 * 指定学生退课
+	 * 
+	 * @param sid 学生学号
+	 * @param cid 课程代码
+	 * @param term 学期号
+	 * 
+	 * @return 退课成功/失败
+	 */
+	public boolean dropStuCourse(String sid, String cid, String term)
+	{
+		boolean ret = true;
+		
+		try {
+			Connection conn = getConnection();
+			
+			Statement stmt = conn.createStatement();
+			ResultSet res = stmt.executeQuery("select * from sc where '" + sid + "' = Sid AND '" + cid + 
+					"' = Cid AND Term = '" + term + "';");
+			
+			if( res.next() )
+			{
+				int sql_res = stmt.executeUpdate("delete from sc where Sid = '" + sid + "' AND Cid = '" + cid
+						+ "' AND Term = '" + term + "';");
+				
+				if(sql_res != 1)
+					ret =false;
+			}
+			else
+				ret = false;
+			
+			res.close();
+			stmt.close();
 			conn.close();	
 		} catch (Exception e) {
 			e.printStackTrace();
