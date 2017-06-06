@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class JP_Admin_Student extends JPanel implements ActionListener{
+public class JP_Admin_User_Manage extends JPanel implements ActionListener{
 	
 	private JTabbedPane TP_ctrl;
 	JTextField tf2;
@@ -25,7 +25,7 @@ public class JP_Admin_Student extends JPanel implements ActionListener{
 	JButton btquery;
 	JButton bt;
 
-	public JP_Admin_Student(String name){
+	public JP_Admin_User_Manage(String name){
 		init(name);
 		
 	}

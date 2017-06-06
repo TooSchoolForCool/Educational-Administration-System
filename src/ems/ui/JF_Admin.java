@@ -14,7 +14,7 @@ import ems.ui.administrator.JP_Admin_Class;
 import ems.ui.administrator.JP_Admin_Course;
 import ems.ui.administrator.JP_Admin_Password;
 import ems.ui.administrator.JP_Admin_Privileges;
-import ems.ui.administrator.JP_Admin_Student;
+import ems.ui.administrator.JP_Admin_User_Manage;
 import ems.ui.administrator.JP_Admin_User_Add;
 import ems.user.Teacher;
 import ems.utils.UIutils;
@@ -48,7 +48,7 @@ public class JF_Admin extends JFrame implements ActionListener,ChangeListener{
 		TP_ctrl.add("设定权限", new JP_Admin_Privileges("设定权限"));
 		TP_ctrl.add("密码管理", new JP_Admin_Password("密码管理"));
 		TP_ctrl.add("课程管理", new JP_Admin_Course("课程管理"));
-		TP_ctrl.add("用戶管理", new JP_Admin_Student("用戶管理"));
+		TP_ctrl.add("用戶管理", new JP_Admin_User_Manage("用戶管理"));
 		TP_ctrl.add("班级管理", new JP_Admin_Class("班级管理"));
 		
 		
