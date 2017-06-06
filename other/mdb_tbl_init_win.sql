@@ -3,7 +3,7 @@ use MDB;
 -- 用户登录信息表
 create table User
 (
-    LoginID varchar(20),
+    LoginID varchar(20) primary key,
     PassWord varchar(20),
     Authoritiy int
 );
@@ -19,7 +19,7 @@ create table Teachers
     Tid varchar(20),
     Tname varchar(20),
     Tage numeric(3),
-    Tsex char(2),
+    Tsex char(20),
     Taca varchar(20),
     Tdepart varchar(20),
     constraint pk_name primary key (Tid)
