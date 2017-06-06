@@ -14,13 +14,14 @@ import javax.swing.JTextField;
 import ems.utils.UIutils;
 
 public class JP_Stu_Course_Query extends JPanel implements ActionListener{
+	private String stuid;
+	
 	private JTextField sid;
-//	private JTextField newpassword;
-//	private JTextField newpassword2;
 	private  JTextArea textAreaOutput;
 	
-	public JP_Stu_Course_Query(String name){
+	public JP_Stu_Course_Query(String name, String stuid){
 		init(name);
+		this.stuid = stuid;
 	}
 	
 	public void init(String name){
@@ -54,7 +55,7 @@ public class JP_Stu_Course_Query extends JPanel implements ActionListener{
 		textAreaOutput.setBackground(Color.WHITE);
 		textAreaOutput.setSelectedTextColor(Color.BLACK);
 		textAreaOutput.setLineWrap(true);        //激活自动换行功能 
-		textAreaOutput.setWrapStyleWord(true);            // 激活断行不断字功能
+		textAreaOutput.setWrapStyleWord(true);   // 激活断行不断字功能
 		scrop.setViewportView(textAreaOutput);
 		
 		BT_add.addActionListener(this);
