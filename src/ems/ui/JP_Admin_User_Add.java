@@ -16,7 +16,7 @@ import javax.swing.JComboBox;
 import java.awt.FlowLayout;
 import java.awt.List;
 
-public class JP_Mng_AddUser extends JPanel implements ActionListener{
+public class JP_Admin_User_Add extends JPanel implements ActionListener{
 	
 	JComboBox cb1;
 	JTextField tf2;
@@ -27,7 +27,7 @@ public class JP_Mng_AddUser extends JPanel implements ActionListener{
 	JTextField tf7;
 	JTextField tf8;
 	
-	public JP_Mng_AddUser(String name){
+	public JP_Admin_User_Add(String name){
 		init(name);
 		
 	}

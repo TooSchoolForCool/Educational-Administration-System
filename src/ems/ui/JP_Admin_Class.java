@@ -12,11 +12,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class JP_Mng_MnClass extends JPanel implements ActionListener{
+public class JP_Admin_Class extends JPanel implements ActionListener{
 	
 	private JTabbedPane TP_ctrl;
 	
-	public JP_Mng_MnClass(String name){
+	public JP_Admin_Class(String name){
 		init(name);
 		
 	}
@@ -32,10 +32,9 @@ public class JP_Mng_MnClass extends JPanel implements ActionListener{
 		TP_ctrl.setFocusable(false);
 		TP_ctrl.setFont(UIutils.font);
 		
-		TP_ctrl.add("添加班级", new JP_Mng_MnClass_Add("添加班级"));
-		TP_ctrl.add("删除班级", new JP_Mng_MnClass_Delete("删除班级"));
-		TP_ctrl.add("修改班级", new JP_Mng_MnClass_Update("修改班级"));
-		TP_ctrl.add("查询班级", new JP_Mng_MnClass_Query("查询班级"));
+		TP_ctrl.add("添加班级", new JP_Admin_Class_Add("添加班级"));
+		TP_ctrl.add("查询班级", new JP_Admin_Class_Query("查询班级"));
+		TP_ctrl.add("修改班级", new JP_Admin_Class_Update("修改班级"));
 
 		add(TP_ctrl);
 	}

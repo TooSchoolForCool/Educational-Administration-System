@@ -13,12 +13,12 @@ import javax.swing.event.ChangeListener;
 import ems.user.Teacher;
 import ems.utils.UIutils;
 
-public class JF_Manager extends JFrame implements ActionListener,ChangeListener{
+public class JF_admin extends JFrame implements ActionListener,ChangeListener{
 	Teacher teacher;
 	
 	private JTabbedPane TP_ctrl;
 	
-	public JF_Manager(String LoginID) {
+	public JF_admin(String LoginID) {
 		
 		//根据LoginID在数据库查表从MDB获取teacher对象
 		
@@ -38,12 +38,12 @@ public class JF_Manager extends JFrame implements ActionListener,ChangeListener{
 		TP_ctrl.addChangeListener(this);
 		TP_ctrl.setFont(UIutils.font);
 		
-		TP_ctrl.add("添加用户", new JP_Mng_AddUser("添加用户"));
-		TP_ctrl.add("设定权限", new JP_Mng_SetPrivi("设定权限"));
-		TP_ctrl.add("密码管理", new JP_Mng_SetPassword("密码管理"));
-		TP_ctrl.add("课程管理", new JP_Mng_MnCourse("课程管理"));
-		TP_ctrl.add("学生管理", new JP_Mng_MnStudent("学生管理"));
-		TP_ctrl.add("班级管理", new JP_Mng_MnClass("班级管理"));
+		TP_ctrl.add("添加用户", new JP_Admin_User_Add("添加用户"));
+		TP_ctrl.add("设定权限", new JP_Admin_Privileges("设定权限"));
+		TP_ctrl.add("密码管理", new JP_Admin_Password("密码管理"));
+		TP_ctrl.add("课程管理", new JP_Admin_Course("课程管理"));
+		TP_ctrl.add("学生管理", new JP_Admin_Student("学生管理"));
+		TP_ctrl.add("班级管理", new JP_Admin_Class("班级管理"));
 		
 		
 		Container container = this.getContentPane();

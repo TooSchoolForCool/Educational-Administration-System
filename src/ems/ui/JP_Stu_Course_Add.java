@@ -79,7 +79,7 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 	    return items; 
 	}
 
-	class CheckableItem {
+	private class CheckableItem {
 		private boolean isSelected; 
 		private String str; 
 		public CheckableItem(String str) { 
@@ -171,11 +171,12 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 			
 		}else if(e.getActionCommand().equals("选课")){
 			//遍历items获得已选的
-			
+			scrollPane.setViewportView(null);
 			for(CheckableItem item:items){
-				if(item.isSelected){
+				if(item.isSelected()){
 					System.out.println(item.toString());
 					mdb.addNewCourse4Student(id, item.toString());
+					item.setSelected(!item.isSelected());
 				}
 			}
 		}

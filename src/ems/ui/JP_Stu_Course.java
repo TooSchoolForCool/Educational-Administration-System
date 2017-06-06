@@ -36,7 +36,6 @@ public class JP_Stu_Course extends JPanel implements ActionListener,ChangeListen
 
 		TP_ctrl.add("Ñ¡¿Î", new JP_Stu_Course_Add("Ñ¡¿Î"));
 		TP_ctrl.add("²é¿Î", new JP_Stu_Course_Query("²é¿Î"));
-		TP_ctrl.add("ÍË¿Î", new JP_Stu_Course_Delete("ÍË¿Î"));
 		
 		add(TP_ctrl);
 	}

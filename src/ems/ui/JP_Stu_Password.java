@@ -16,13 +16,13 @@ import javax.swing.JButton;
 
 import ems.db.*;
 import ems.*;
-public class JP_Stu_SetPassword extends JPanel implements ActionListener{
+public class JP_Stu_Password extends JPanel implements ActionListener{
 	
 //	private JTextField oripassword;
 	private JTextField newpassword;
 	private JTextField newpassword2;
 	private JButton  BT_add;
-	public JP_Stu_SetPassword(String name){
+	public JP_Stu_Password(String name){
 		init(name);
 	}
 	

@@ -11,13 +11,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class JP_Mng_SetPassword extends JPanel implements ActionListener{
+public class JP_Admin_Password extends JPanel implements ActionListener{
 	private JTextField tf_id;
 	private JTextField tf_newpwd;
 	
 	
 	
-	public JP_Mng_SetPassword(String name){
+	public JP_Admin_Password(String name){
 		init(name);
 		
 	}
