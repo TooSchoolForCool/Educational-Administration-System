@@ -55,19 +55,19 @@ public class JP_Tea_Course_QStudents extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("≤È—Ø")){
-//			Application ap = Application.getApplication();
-//			MDB mdb = ap.getMDB();
-//			
-//			ArrayList<String> class_info = mdb.getTeacherClassStudent(tid);
-//			
-//			String text_output = "";
-//			
-//			for(String str : class_info)
-//			{
-//				text_output += str + "\r\n";
-//			}
-//			
-//			textAreaOutput.setText(text_output);
+			Application ap = Application.getApplication();
+			MDB mdb = ap.getMDB();
+			
+			ArrayList<String> class_info = mdb.getTeacherClassStudent(tid);
+			
+			String text_output = "";
+			
+			for(String str : class_info)
+			{
+				text_output += str + "---------------------------------\n";
+			}
+			
+			textAreaOutput.setText(text_output);
 		}
 	}
 }

@@ -17,9 +17,6 @@ import ems.db.MDB;
 import ems.utils.UIutils;
 
 public class JP_Stu_Information extends JPanel implements ActionListener{
-	
-	private JTextArea ta_result;
-	
 	String stuid;
 	
 	JTextField tf_id;
