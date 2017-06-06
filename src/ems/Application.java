@@ -12,7 +12,7 @@ import ems.ui.JF_Login;
 import ems.ui.JF_Student;
 import ems.ui.JF_Teacher;
 import ems.ui.JF_Login.OnLoginSuccessListener;
-import ems.ui.JF_Manager;
+import ems.ui.JF_Admin;
 import ems.user.Student;
 
 public class Application implements OnLoginSuccessListener{
@@ -25,7 +25,7 @@ public class Application implements OnLoginSuccessListener{
 	private static JF_Login JFlogin;
 	private static JF_Student JFStudent;
 	private static JF_Teacher JFTeacher;
-	private static JF_Manager JFManager;
+	private static JF_Admin JFManager;
 	
 	public static void main(String[] args) {
 		mapplication = new Application();
@@ -68,7 +68,7 @@ public class Application implements OnLoginSuccessListener{
 		switch(Authoritiy){
 		case 0:
 			
-			JFManager = new JF_Manager(LoginID);
+			JFManager = new JF_Admin(LoginID);
 			
 			break;
 		case 1:

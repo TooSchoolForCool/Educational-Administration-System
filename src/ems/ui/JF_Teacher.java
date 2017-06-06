@@ -10,6 +10,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import ems.ui.teacher.JP_Tea_Course;
+import ems.ui.teacher.JP_Tea_Information;
+import ems.ui.teacher.JP_Tea_Password;
 import ems.user.Manager;
 import ems.utils.UIutils;
 
@@ -41,7 +44,7 @@ public class JF_Teacher extends JFrame implements ActionListener,ChangeListener{
 		
 		TP_ctrl.add("个人信息", new JP_Tea_Information("个人信息"));
 		TP_ctrl.add("课程管理", new JP_Tea_Course("课程管理"));
-		TP_ctrl.add("教师管理", new JP_Tea_SetPassword("教师管理"));
+		TP_ctrl.add("密码管理", new JP_Tea_Password("密码管理"));
 		
 		
 		Container container = this.getContentPane();
