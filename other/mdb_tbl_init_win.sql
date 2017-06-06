@@ -67,6 +67,8 @@ insert into Courses values('信息安全原理','0802', '2017S', 'IS', 'T2014080
 
 insert into Courses values('计算机网络','0803', '2017S', 'CS', 'T20140803');
 
+insert into Courses values('编译原理','0804', '2017S', 'CS', 'T20140801');
+
 -- 学生选课表SC
 create table SC
 (   
@@ -85,9 +87,13 @@ insert into SC values('2014080101','0802','2017S', NULL);
 
 insert into SC values('2014080102','0802','2017S', NULL);
 
+insert into SC values('2014080102','0804','2017S', NULL);
+
 insert into SC values('2014080103','0801','2017S', NULL);
 
 insert into SC values('2014080103','0803','2017S', NULL);
+
+insert into SC values('2014080103','0804','2017S', NULL);
 
 -- 课程时间表CT
 create table CT
@@ -108,6 +114,8 @@ insert into CT values('0802', '2017S', '每周一/周三-14:30','复401');
 
 insert into CT values('0803', '2017S', '每周二/周四-8:00','中206');
 
+insert into CT values('0804', '2017S', '每周三-10:00','中330');
+
 
 -- 考试信息表
 -- 课程时间表CT
@@ -124,6 +132,7 @@ create table Exams
 insert into Exams values('0801', '2017S', '6月13日 8:00-10:00', '中303');
 insert into Exams values('0802', '2017S', '6月16日 10:00-12:00', '复206');
 insert into Exams values('0803', '2017S', '6月20日 15:00-17:00', '综110');
+insert into Exams values('0804', '2017S', '6月18日 15:00-17:00', '综220');    
 
 -- 学生学期表StudentTerm
 create table ST
