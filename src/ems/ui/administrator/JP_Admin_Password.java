@@ -19,7 +19,6 @@ public class JP_Admin_Password extends JPanel implements ActionListener{
 	
 	public JP_Admin_Password(String name){
 		init(name);
-		
 	}
 	
 	public void init(String name){

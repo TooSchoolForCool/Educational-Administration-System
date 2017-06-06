@@ -295,6 +295,39 @@ public class MDB {
 	}
 	
 	/**
+	 * 学生信息查询函数
+	 * @param Sid	学号
+	 * @param jta	文本区
+	 * @throws SQLException
+	 */
+	public String queryTeacherInfo(String tid) throws SQLException{
+		String ret = "";
+		
+		Connection conn = getConnection();
+		
+		//现在参数只有一个Sid，后面做教师查询可以把表名也拿出来做参数
+		sql="select * from Teachers where Tid='" + tid + "'";
+		
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql); // executeQuery会返回结果的集合，否则返回空值
+		
+		// 获取列名  
+        ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();  
+        
+        if( !rs.next() )
+        	return "查无此人";
+        
+        for (int i = 0; i < metaData.getColumnCount(); i++) {  
+            // rs数据下标从1开始  
+            String columnName = metaData.getColumnName(i + 1);
+            
+            ret += columnName + ": " +  rs.getString(i + 1) + "\r\n";
+        }
+        
+        return ret;
+	}
+	
+	/**
 	 * 添加新老师
 	 * 
 	 * @param id 工号

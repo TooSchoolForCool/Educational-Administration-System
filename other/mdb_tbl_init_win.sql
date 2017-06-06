@@ -9,7 +9,7 @@ create table User
 );
 
 insert into User values('admin','admin',0);
-insert into User values('teacher','teacher',1);
+insert into User values('T20140801','123',1);
 insert into User values('student','student',2);
 insert into User values('2014080101','123',2);
 
