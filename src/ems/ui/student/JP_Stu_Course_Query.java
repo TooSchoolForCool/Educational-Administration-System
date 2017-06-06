@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -108,7 +109,6 @@ public class JP_Stu_Course_Query extends JPanel implements ActionListener,MouseL
 		}else if(e.getActionCommand().equals("退课")){
 			//遍历items获得已选的
 			scrollPane.setViewportView(null);
-			System.out.println("选择的退课：");
 			ArrayList<String> listodel = new ArrayList<String>();
 			
 			for(CheckableItem item:items){
@@ -121,10 +121,18 @@ public class JP_Stu_Course_Query extends JPanel implements ActionListener,MouseL
 					item.setSelected(!item.isSelected());
 				}
 			}
-			boolean[] f = new boolean[listodel.size()];
-			for(int i=0;i<listodel.size();i++){
-				System.out.println(listodel.get(i));
-				
+			String failmsg = "";
+			for(String s:listodel){
+				String[] str = s.split(" ");
+				if(!mdb.dropStuCourse(id, str[1], str[0])){
+					failmsg+=(s+"\n");
+				}
+			}
+			if(!failmsg.isEmpty()){
+				failmsg+="退课失败！";
+				JOptionPane.showMessageDialog(null, failmsg, "提示",JOptionPane.ERROR_MESSAGE);
+			}else{
+				JOptionPane.showMessageDialog(null, "退课成功！", "提示",JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 	}
