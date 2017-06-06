@@ -3,9 +3,12 @@ package ems.ui.student;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -55,7 +58,25 @@ public class JP_Stu_Course_Query extends JPanel implements ActionListener{
 	}
 	
 
+	/**
+	 * 修改密码接口
+	 * 点击修改按钮，比较新旧密码，传参，进行修改
+	 */
 	public void actionPerformed(ActionEvent e) {
-		
+		if(e.getActionCommand().equals("查询")){
+			Application ap = Application.getApplication();
+			MDB mdb = ap.getMDB();
+			
+			ArrayList<String> class_info = mdb.getStuClassTimeAndPlace(stuid);
+			
+			String text_output = "";
+			
+			for(String str : class_info)
+			{
+				text_output += str + "\r\n";
+			}
+			
+			textAreaOutput.setText(text_output);
+		}
 	}
 }
