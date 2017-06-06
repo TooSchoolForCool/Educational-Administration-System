@@ -58,10 +58,7 @@ public class JP_Stu_Course_Query extends JPanel implements ActionListener{
 	}
 	
 
-	/**
-	 * 修改密码接口
-	 * 点击修改按钮，比较新旧密码，传参，进行修改
-	 */
+	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("查询")){
 			Application ap = Application.getApplication();
