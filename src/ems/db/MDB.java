@@ -441,6 +441,89 @@ public class MDB {
 		}
 	}
 	
+	/**
+	 * 获取一个学生考试信息
+	 * 
+	 * @param id 待查询学生的学号
+	 * 
+	 * @return 考试信息([学期 课程代码] 课程名 时间 地点)
+	 */
+	public ArrayList<String> getStuExamInfo(String stuid){
+		ArrayList<String> ret = new ArrayList<String>();
+		
+		try{
+			Connection conn = getConnection();
+			
+			Statement stmt = conn.createStatement();
+			
+			ResultSet res = stmt.executeQuery("select Exams.Cid, Courses.Cname, Exams.Term, Exams.Etime, "
+					+ "Exams.Eplace from Exams, Courses, SC where SC.Sid = " + stuid + " AND SC.Cid = Courses.Cid "
+					+ "AND Courses.Cid = Exams.Cid");
+			
+			while(res.next()){
+				String db_Cid = res.getString(1);
+				String db_Cname = res.getString(2);
+				String db_Term = res.getString(3);
+				String db_Etime = res.getString(4);
+				String db_Eplace = res.getString(5);
+				
+				String item = "[" + db_Term + " " + db_Cid + "] " + db_Cname + " "
+						+ db_Etime + " " + db_Eplace;
+				
+				ret.add(item);
+			}
+			
+			res.close();
+			stmt.close();
+			conn.close();
+			
+			return ret;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * 获取一个学生成绩信息
+	 * 
+	 * @param id 待查询学生的学号
+	 * 
+	 * @return 考试信息([学期 课程代码] 课程名 成绩)
+	 */
+	public ArrayList<String> getStuScoreInfo(String stuid){
+		ArrayList<String> ret = new ArrayList<String>();
+		
+		try{
+			Connection conn = getConnection();
+			
+			Statement stmt = conn.createStatement();
+			
+			ResultSet res = stmt.executeQuery("select SC.Cid, Courses.Cname, SC.Term, SC.Grade "
+					+ "from SC, Courses where SC.Cid = Courses.Cid AND SC.Sid = " + stuid + ";");
+			
+			while(res.next()){
+				String db_Cid = res.getString(1);
+				String db_Cname = res.getString(2);
+				String db_Term = res.getString(3);
+				int db_Grade = res.getInt(4);
+				
+				String item = "[" + db_Term + " " + db_Cid + "] " + db_Cname + " " + db_Grade;
+				
+				ret.add(item);
+			}
+			
+			res.close();
+			stmt.close();
+			conn.close();
+			
+			return ret;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public String generateInsertSQL(String tbl, int num_items)
 	{
 		String ret = "insert into " + tbl + " values(";

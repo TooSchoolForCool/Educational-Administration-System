@@ -55,6 +55,30 @@ public class MDBTest {
 		System.out.println("------------------------------------------------");
 	}
 	
+	
+	@Test
+	public void testGetStuExamInfo() {
+		ArrayList<String> list = mdb.getStuExamInfo("2014080101");
+		
+		System.out.println("----------------getStuExamInfo------------------");
+		for(int i = 0;i < list.size(); i++){
+            System.out.println(list.get(i));
+        }
+		System.out.println("------------------------------------------------");
+	}
+	
+	
+	@Test
+	public void testGetStuScoreInfo() {
+		ArrayList<String> list = mdb.getStuScoreInfo("2014080101");
+		
+		System.out.println("----------------getStuScoreInfo-----------------");
+		for(int i = 0;i < list.size(); i++){
+            System.out.println(list.get(i));
+        }
+		System.out.println("------------------------------------------------");
+	}
+	
 	@Test
 	public void testAddNewCourse4Student() {
 		System.out.println("Add 2014080101 [0803]");
