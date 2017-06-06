@@ -107,29 +107,41 @@ public class MDB {
 	
 	public boolean addNewCourse4Student(String sid, String course_info)
 	{
+		boolean ret = true;
 		String[] c_infos = course_info.split(" ");
 		String sql = generateInsertSQL("SC", 4);
 		
 		try {
 			Connection conn = getConnection();
 	    	
-	    	// User table
-	    	PreparedStatement preStmt = conn.prepareStatement(sql);  
-	        preStmt.setString(1, sid);  
-	        preStmt.setString(2, c_infos[0]);
-	        preStmt.setString(3, c_infos[2]);
-	        preStmt.setNull(4, Types.INTEGER);
-	        
-	        preStmt.executeUpdate();
+			Statement stmt = conn.createStatement();
 			
-			preStmt.close();
-			conn.close();
+			ResultSet res = stmt.executeQuery("select * from sc where " + sid + " = Sid AND " + c_infos[0] + " = Cid;");
+			
+			if( !res.next() )
+			{
+				// User table
+		    	PreparedStatement preStmt = conn.prepareStatement(sql);  
+		        preStmt.setString(1, sid);  
+		        preStmt.setString(2, c_infos[0]);
+		        preStmt.setString(3, c_infos[2]);
+		        preStmt.setNull(4, Types.INTEGER);
+		        
+		        preStmt.executeUpdate();
+		        
+		        preStmt.close();
+			}
+			else
+				ret = false;
+			
+			res.close();
+			conn.close();	
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			ret = false;
 		}
 		
-		return true;
+		return ret;
 	}
 
 	/**
