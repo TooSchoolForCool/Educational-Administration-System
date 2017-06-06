@@ -204,7 +204,7 @@ public class MDB {
 			
 			ResultSet res = stmt.executeQuery(
 					"select courses.Cid, Cname, courses.Term, Cdepart, Tname from courses, "
-					+ "sc, Teachers where " + id + " = sc.Sid AND sc.cid=courses.cid AND courses.Tid = Teachers.Tid;");
+					+ "sc, Teachers where '" + id + "' = sc.Sid AND sc.cid=courses.cid AND courses.Tid = Teachers.Tid;");
 
 			while (res.next()) {
 				// Retrieve by column name
@@ -489,8 +489,8 @@ public class MDB {
 			Statement stmt = conn.createStatement();
 			
 			ResultSet res = stmt.executeQuery("select sc.Cid, courses.Cname, courses.Term, CT.Ctime, "
-					+ "CT.Cplace, Teachers.Tname from sc, courses, CT, Teachers where sc.Sid = " 
-					+ stuid + " AND courses.Tid = Teachers.Tid AND CT.Cid = SC.Cid AND SC.Cid = Courses.Cid");
+					+ "CT.Cplace, Teachers.Tname from sc, courses, CT, Teachers where sc.Sid = '" 
+					+ stuid + "' AND courses.Tid = Teachers.Tid AND CT.Cid = SC.Cid AND SC.Cid = Courses.Cid");
 						
 			while(res.next()){
 				String db_Cid = res.getString(1);
@@ -502,6 +502,47 @@ public class MDB {
 				
 				String item = "[" + db_Term + " " + db_Cid + "] " + db_Cname + " " +  db_Tname
 						+ " " + db_Ctime + " " + db_Cplace;
+				
+				ret.add(item);
+			}
+			
+			res.close();
+			stmt.close();
+			conn.close();
+			
+			return ret;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * 获取教师的授课信息
+	 * 
+	 * @param id 待查询教师的工号
+	 * 
+	 * @return 可选课程的信息([学期 课程代码] 课程名 时间 地点)
+	 */
+	public ArrayList<String> getTeacherClassInfo(String tid){
+		ArrayList<String> ret = new ArrayList<String>();
+		
+		try{
+			Connection conn = getConnection();
+			
+			Statement stmt = conn.createStatement();
+			
+			ResultSet res = stmt.executeQuery("select courses.Cid, courses.Cname, courses.Term, CT.Ctime, "
+					+ "CT.Cplace from courses, CT where courses.Tid = '" + tid + "' AND courses.Cid = CT.Cid;");
+						
+			while(res.next()){
+				String db_Cid = res.getString(1);
+				String db_Cname = res.getString(2);
+				String db_Term = res.getString(3);
+				String db_Ctime = res.getString(4);
+				String db_Cplace = res.getString(5);
+				
+				String item = "[" + db_Term + " " + db_Cid + "] " + db_Cname + " " + db_Ctime + " " + db_Cplace;
 				
 				ret.add(item);
 			}
@@ -533,7 +574,7 @@ public class MDB {
 			Statement stmt = conn.createStatement();
 			
 			ResultSet res = stmt.executeQuery("select Exams.Cid, Courses.Cname, Exams.Term, Exams.Etime, "
-					+ "Exams.Eplace from Exams, Courses, SC where SC.Sid = " + stuid + " AND SC.Cid = Courses.Cid "
+					+ "Exams.Eplace from Exams, Courses, SC where SC.Sid = '" + stuid + "' AND SC.Cid = Courses.Cid "
 					+ "AND Courses.Cid = Exams.Cid");
 			
 			while(res.next()){
@@ -576,7 +617,7 @@ public class MDB {
 			Statement stmt = conn.createStatement();
 			
 			ResultSet res = stmt.executeQuery("select SC.Cid, Courses.Cname, SC.Term, SC.Grade "
-					+ "from SC, Courses where SC.Cid = Courses.Cid AND SC.Sid = " + stuid + ";");
+					+ "from SC, Courses where SC.Cid = Courses.Cid AND SC.Sid = '" + stuid + "';");
 			
 			while(res.next()){
 				String db_Cid = res.getString(1);

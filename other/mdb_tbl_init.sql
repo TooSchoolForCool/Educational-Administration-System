@@ -85,6 +85,8 @@ insert into SC values('2014080101','0802','2017S', NULL);
 
 insert into SC values('2014080102','0802','2017S', NULL);
 
+insert into SC values('2014080103','0801','2017S', NULL);
+
 insert into SC values('2014080103','0803','2017S', NULL);
 
 -- 课程时间表CT
