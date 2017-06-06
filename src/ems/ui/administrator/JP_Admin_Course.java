@@ -33,8 +33,7 @@ public class JP_Admin_Course extends JPanel implements ActionListener{
 		TP_ctrl.setFont(UIutils.font);
 
 		TP_ctrl.add("添加课程", new JP_Admin_Course_Add("添加课程"));
-		TP_ctrl.add("查询课程", new JP_Admin_Course_Query("查询课程"));
-		TP_ctrl.add("修改课程", new JP_Admin_Course_Update("修改课程"));
+		TP_ctrl.add("课程管理", new JP_Admin_Course_Manage("课程管理"));
 		
         
 		add(TP_ctrl);

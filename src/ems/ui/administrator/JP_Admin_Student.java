@@ -32,9 +32,8 @@ public class JP_Admin_Student extends JPanel implements ActionListener{
 		TP_ctrl.setFocusable(false);
 		TP_ctrl.setFont(UIutils.font);
 		
-		TP_ctrl.add("添加学生", new JP_Admin_Student_Add("添加学生"));
-		TP_ctrl.add("查询学生", new JP_Admin_Student_Query("查询学生"));
-		TP_ctrl.add("修改学生", new JP_Admin_Student_Update("修改学生"));
+		TP_ctrl.add("查询用户", new JP_Admin_Student_Query("查询用户"));
+		TP_ctrl.add("修改用户", new JP_Admin_Student_Update("修改用户"));
 		
 		add(TP_ctrl);
 		
