@@ -123,21 +123,15 @@ public class JP_Stu_Information extends JPanel implements ActionListener{
 			MDB mdb=ap.getMDB();
 			
 			try {
-				String info = mdb.queryStudentInfo(stuid);
-				System.out.println(info);
-				String[] info2 = info.split(" ");
+				String[] info = mdb.queryStudentInfo(stuid).split(" ");
 				
-				tf_id.setText(info2[1]);
-				tf_name.setText(info2[3]);
-				tf_age.setText(info2[5]);
-				tf_sex.setText(info2[7]);
-				tf_aca.setText(info2[9]);
+				tf_id.setText(info[0]);
+				tf_name.setText(info[1]);
+				tf_age.setText(info[2]);
+				tf_sex.setText(info[3]);
+				tf_aca.setText(info[4]);
+				tf_depart.setText(info[5]);
 				
-				
-				for(int i=0;i<info2.length;i++){
-					System.out.println(info2[i]);
-				}
-//				ta_result.setText(info);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
