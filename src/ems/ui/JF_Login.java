@@ -2,6 +2,8 @@ package ems.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -15,7 +17,7 @@ import ems.Application;
 import ems.user.Student;
 import ems.utils.UIutils;
 
-public class JF_Login extends JFrame implements ActionListener{
+public class JF_Login extends JFrame implements ActionListener,KeyListener{
 	/**用户名输入框*/
 	private JTextField TF_LoginID = null;
 	/**密码输入框*/
@@ -68,6 +70,7 @@ public class JF_Login extends JFrame implements ActionListener{
 		TF_PassWord.setBounds(94, 73, 274, 30);
 		TF_PassWord.setFont(UIutils.font);
 		TF_PassWord.setEchoChar('*');
+		TF_PassWord.addKeyListener(this);
 		this.getContentPane().add(TF_PassWord);
 		//密码可见复选框
 		CB_password = new JCheckBox("");
@@ -99,25 +102,47 @@ public class JF_Login extends JFrame implements ActionListener{
 		if(e.getActionCommand().equals("密码可见")){    //密码可见与否的复选框
 			TF_PassWord.setEchoChar(CB_password.isSelected()?(char)0:'*');
 		}else if(e.getActionCommand().equals("登录")){ //按下登录键
-			String LoginID = TF_LoginID.getText();
-			String PassWord = new String(TF_PassWord.getPassword());
-			
-			//合法用户名和密码
-			Application mapplication = Application.getApplication();
-			int Authoritiy = mapplication.getMDB().login(LoginID, PassWord);
-			
-			if(Authoritiy == -1){// ret 为账户类型，-1为登录失败
-				JOptionPane.showMessageDialog(null, "登录失败！", "提示",JOptionPane.ERROR_MESSAGE);
-			}else{
-				mapplication.setLoginID(LoginID);
-				loginlistener.OnLoginSuccess(Authoritiy);  //
-				//System.out.println(Authoritiy);
-			}
-			
-			TF_LoginID.setText("");
-			TF_PassWord.setText("");
+			Login();//调用下面的登录方法
 		}else if(e.getActionCommand().equals("取消")){  //按下取消键
 			System.exit(0);
 		}
 	}
+
+	/**
+	 * 回车键的响应
+	 * @param e
+	 */
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode()==10){
+			Login();
+		}
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {}
+	@Override
+	public void keyTyped(KeyEvent e) {}
+	
+	/**
+	 * 登录方法
+	 */
+	private void Login(){
+		String LoginID = TF_LoginID.getText();
+		String PassWord = new String(TF_PassWord.getPassword());
+		//合法用户名和密码
+		Application mapplication = Application.getApplication();
+		int Authoritiy = mapplication.getMDB().login(LoginID, PassWord);
+		
+		if(Authoritiy == -1){// ret 为账户类型，-1为登录失败
+			JOptionPane.showMessageDialog(null, "登录失败！", "提示",JOptionPane.ERROR_MESSAGE);
+		}else{
+			mapplication.setLoginID(LoginID);
+			loginlistener.OnLoginSuccess(Authoritiy);  //
+			//System.out.println(Authoritiy);
+		}
+		TF_LoginID.setText("");
+		TF_PassWord.setText("");
+	}
+	
+	
 }
