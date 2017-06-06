@@ -29,8 +29,13 @@ public class JP_Stu_Course_Add extends JPanel implements ActionListener{
 	JScrollPane scrollPane;
 	JList jlist;
 	
+	private String stuid;
+	
 	public JP_Stu_Course_Add(String name){
 		init(name);
+		
+		Application ap = Application.getApplication();
+		this.stuid = ap.getLoginID();
 	}
 	
 	public void init(String name){
