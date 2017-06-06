@@ -124,8 +124,10 @@ public class JP_Stu_Course_Query extends JPanel implements ActionListener,MouseL
 					item.setSelected(!item.isSelected());
 				}
 			}
+			boolean[] f = new boolean[listodel.size()];
 			for(int i=0;i<listodel.size();i++){
 				System.out.println(listodel.get(i));
+				
 			}
 		}
 	}
