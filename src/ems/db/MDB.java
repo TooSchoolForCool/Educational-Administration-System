@@ -116,7 +116,8 @@ public class MDB {
 	    	
 			Statement stmt = conn.createStatement();
 			
-			ResultSet res = stmt.executeQuery("select * from sc where " + sid + " = Sid AND " + c_infos[0] + " = Cid;");
+			ResultSet res = stmt.executeQuery("select * from sc where '" + sid + "' = Sid AND '" + c_infos[0] + 
+					"' = Cid AND Term = '" + c_infos[2] + "';");
 			
 			if( !res.next() )
 			{
@@ -135,6 +136,48 @@ public class MDB {
 				ret = false;
 			
 			res.close();
+			conn.close();	
+		} catch (Exception e) {
+			e.printStackTrace();
+			ret = false;
+		}
+		
+		return ret;
+	}
+	
+	/**
+	 * 指定学生退课
+	 * 
+	 * @param sid 学生学号
+	 * @param cid 课程代码
+	 * @param term 学期号
+	 * 
+	 * @return 退课成功/失败
+	 */
+	public boolean dropStuCourse(String sid, String cid, String term)
+	{
+		boolean ret = true;
+		
+		try {
+			Connection conn = getConnection();
+			
+			Statement stmt = conn.createStatement();
+			ResultSet res = stmt.executeQuery("select * from sc where '" + sid + "' = Sid AND '" + cid + 
+					"' = Cid AND Term = '" + term + "';");
+			
+			if( res.next() )
+			{
+				int sql_res = stmt.executeUpdate("delete from sc where Sid = '" + sid + "' AND Cid = '" + cid
+						+ "' AND Term = '" + term + "';");
+				
+				if(sql_res != 1)
+					ret =false;
+			}
+			else
+				ret = false;
+			
+			res.close();
+			stmt.close();
 			conn.close();	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -426,6 +469,89 @@ public class MDB {
 				
 				String item = "[" + db_Term + " " + db_Cid + "] " + db_Cname + " " +  db_Tname
 						+ " " + db_Ctime + " " + db_Cplace;
+				
+				ret.add(item);
+			}
+			
+			res.close();
+			stmt.close();
+			conn.close();
+			
+			return ret;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * 获取一个学生考试信息
+	 * 
+	 * @param id 待查询学生的学号
+	 * 
+	 * @return 考试信息([学期 课程代码] 课程名 时间 地点)
+	 */
+	public ArrayList<String> getStuExamInfo(String stuid){
+		ArrayList<String> ret = new ArrayList<String>();
+		
+		try{
+			Connection conn = getConnection();
+			
+			Statement stmt = conn.createStatement();
+			
+			ResultSet res = stmt.executeQuery("select Exams.Cid, Courses.Cname, Exams.Term, Exams.Etime, "
+					+ "Exams.Eplace from Exams, Courses, SC where SC.Sid = " + stuid + " AND SC.Cid = Courses.Cid "
+					+ "AND Courses.Cid = Exams.Cid");
+			
+			while(res.next()){
+				String db_Cid = res.getString(1);
+				String db_Cname = res.getString(2);
+				String db_Term = res.getString(3);
+				String db_Etime = res.getString(4);
+				String db_Eplace = res.getString(5);
+				
+				String item = "[" + db_Term + " " + db_Cid + "] " + db_Cname + " "
+						+ db_Etime + " " + db_Eplace;
+				
+				ret.add(item);
+			}
+			
+			res.close();
+			stmt.close();
+			conn.close();
+			
+			return ret;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * 获取一个学生成绩信息
+	 * 
+	 * @param id 待查询学生的学号
+	 * 
+	 * @return 考试信息([学期 课程代码] 课程名 成绩)
+	 */
+	public ArrayList<String> getStuScoreInfo(String stuid){
+		ArrayList<String> ret = new ArrayList<String>();
+		
+		try{
+			Connection conn = getConnection();
+			
+			Statement stmt = conn.createStatement();
+			
+			ResultSet res = stmt.executeQuery("select SC.Cid, Courses.Cname, SC.Term, SC.Grade "
+					+ "from SC, Courses where SC.Cid = Courses.Cid AND SC.Sid = " + stuid + ";");
+			
+			while(res.next()){
+				String db_Cid = res.getString(1);
+				String db_Cname = res.getString(2);
+				String db_Term = res.getString(3);
+				int db_Grade = res.getInt(4);
+				
+				String item = "[" + db_Term + " " + db_Cid + "] " + db_Cname + " " + db_Grade;
 				
 				ret.add(item);
 			}

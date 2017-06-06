@@ -1,24 +1,33 @@
 package ems.ui.student;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import ems.Application;
+import ems.db.MDB;
 import ems.utils.UIutils;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 
 public class JP_Stu_Exam_QueryGrade extends JPanel implements ActionListener{
-	private JTextField oripassword;
-	private JTextField newpassword;
-	private JTextField newpassword2;
+	private  JTextArea textAreaOutput;
+	private JTextField sid;
+	private String stuid;
+	JButton  BT_add;
 	
 	public JP_Stu_Exam_QueryGrade(String name){
 		init(name);
 		
+		Application ap = Application.getApplication();
+		this.stuid = ap.getLoginID();
 	}
 	
 	public void init(String name){
@@ -31,44 +40,44 @@ public class JP_Stu_Exam_QueryGrade extends JPanel implements ActionListener{
 		label.setBounds(34, 32, 200, 30);
 		label.setFont(UIutils.font);
 		add(label);
-//		
-//		JLabel label1 = new JLabel("原密码");
-//		label1.setBounds(34, 32, 60, 30);
-//		label1.setFont(Utils.font);
-//		add(label1);
-//		JLabel label2 = new JLabel("新密码");
-//		label2.setBounds(34, 75, 60, 30);
-//		label2.setFont(Utils.font);
-//		add(label2);
-//		JLabel label3 = new JLabel("新密码");
-//		label3.setBounds(34, 118, 60, 30);
-//		label3.setFont(Utils.font);
-//		add(label3);
-//		
-//		oripassword = new JTextField();
-//		oripassword.setBounds(108, 32, 266, 30);
-//		oripassword.setFont(Utils.font);
-//		add(oripassword);
-//		newpassword = new JTextField();
-//		newpassword.setBounds(108, 75, 266, 30);
-//		newpassword.setFont(Utils.font);
-//		add(newpassword);
-//		newpassword2 = new JTextField();
-//		newpassword2.setBounds(108, 118, 266, 30);
-//		newpassword2.setFont(Utils.font);
-//		add(newpassword2);
-//		
-//		JButton  BT_add = new JButton("确定修改");
-//		BT_add.setBounds(254, 179, 120, 30);
-//		BT_add.setFont(Utils.font);
-//		BT_add.setFocusable(false);
-//		add(BT_add);
 		
-//		BT_add.addActionListener(this);
+		BT_add = new JButton("查询");
+		BT_add.setBounds(108, 80, 120, 30);
+		BT_add.setFont(UIutils.font);
+		BT_add.setFocusable(false);
+		add(BT_add);
+		
+		JScrollPane scrop = new JScrollPane();  //滚动窗口
+		scrop.setBounds(34,120,500,300);
+		add(scrop);
+				
+		textAreaOutput = new JTextArea("", 20, 43);
+		textAreaOutput.setBackground(Color.WHITE);
+		textAreaOutput.setSelectedTextColor(Color.BLACK);
+		textAreaOutput.setEditable(false);
+		textAreaOutput.setLineWrap(true);        //激活自动换行功能 
+		textAreaOutput.setWrapStyleWord(true);   // 激活断行不断字功能
+		scrop.setViewportView(textAreaOutput);
+		
+		BT_add.addActionListener(this);
 	}
 	
 
 	public void actionPerformed(ActionEvent e) {
-		
+		if(e.getSource()==BT_add){
+			Application ap = Application.getApplication();
+			MDB mdb = ap.getMDB();
+			
+			ArrayList<String> class_info = mdb.getStuScoreInfo(stuid);
+			
+			String text_output = "";
+			
+			for(String str : class_info)
+			{
+				text_output += str + "\r\n";
+			}
+			
+			textAreaOutput.setText(text_output);
+		}
 	}
 }

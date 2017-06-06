@@ -113,8 +113,8 @@ create table Exams
 (
     Cid varchar(20),
     Term varchar(20),
-    Ctime varchar(20),
-    Cplace varchar(20),
+    Etime varchar(20),
+    Eplace varchar(20),
     constraint pk_name primary key (Cid, Term),
     foreign key(Cid) references Courses(Cid)
 );

@@ -81,10 +81,7 @@ public class JP_Stu_Course_Query extends JPanel implements ActionListener,MouseL
 	public void mouseReleased(MouseEvent e) {}
 	
 
-	/**
-	 * 修改密码接口
-	 * 点击修改按钮，比较新旧密码，传参，进行修改
-	 */
+	
 	public void actionPerformed(ActionEvent e) {
 		Application application = Application.getApplication();
 		MDB mdb = application.getMDB();
