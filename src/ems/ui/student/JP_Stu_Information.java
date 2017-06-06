@@ -43,22 +43,15 @@ public class JP_Stu_Information extends JPanel implements ActionListener{
 		ta_result.setFont(UIutils.font);
 		ta_result.setEditable(false);
 		add(ta_result);
-		
-		
 	}
 	
-
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand()=="¼ìË÷"){
 			Application ap = Application.getApplication();
 			MDB mdb=ap.getMDB();
 			
-			try {
-				String info = mdb.queryStudentInfo(stuid);
-				ta_result.setText(info);
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			String info = mdb.queryStudentInfo(stuid);
+			ta_result.setText(info);
 		}
 	}
 }
