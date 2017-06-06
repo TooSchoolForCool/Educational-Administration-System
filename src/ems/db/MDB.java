@@ -288,7 +288,7 @@ public class MDB {
             // rs数据下标从1开始  
             String columnName = metaData.getColumnName(i + 1);
             
-            ret += columnName + ": " +  rs.getString(i + 1) + "\r\n";
+            ret += rs.getString(i + 1) + " ";
         }
         
         return ret;
@@ -525,6 +525,47 @@ public class MDB {
 	 * @return 可选课程的信息([学期 课程代码] 课程名 时间 地点)
 	 */
 	public ArrayList<String> getTeacherClassInfo(String tid){
+		ArrayList<String> ret = new ArrayList<String>();
+		
+		try{
+			Connection conn = getConnection();
+			
+			Statement stmt = conn.createStatement();
+			
+			ResultSet res = stmt.executeQuery("select courses.Cid, courses.Cname, courses.Term, CT.Ctime, "
+					+ "CT.Cplace from courses, CT where courses.Tid = '" + tid + "' AND courses.Cid = CT.Cid;");
+						
+			while(res.next()){
+				String db_Cid = res.getString(1);
+				String db_Cname = res.getString(2);
+				String db_Term = res.getString(3);
+				String db_Ctime = res.getString(4);
+				String db_Cplace = res.getString(5);
+				
+				String item = "[" + db_Term + " " + db_Cid + "] " + db_Cname + " " + db_Ctime + " " + db_Cplace;
+				
+				ret.add(item);
+			}
+			
+			res.close();
+			stmt.close();
+			conn.close();
+			
+			return ret;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * 获取教师的授课信息
+	 * 
+	 * @param id 待查询教师的工号
+	 * 
+	 * @return 可选课程的信息([学期 课程代码] 课程名 时间 地点)
+	 */
+	public ArrayList<String> getTeacherClassStudent(String tid){
 		ArrayList<String> ret = new ArrayList<String>();
 		
 		try{
