@@ -1,28 +1,29 @@
 package ems.ui.student;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import ems.Application;
 import ems.db.MDB;
+import ems.utils.CheckableItem;
 import ems.utils.UIutils;
 
-public class JP_Stu_Course_Query extends JPanel implements ActionListener{
+public class JP_Stu_Course_Query extends JPanel implements ActionListener,MouseListener{
 	private String stuid;
-	
-	private JTextField sid;
-	private  JTextArea textAreaOutput;
+
+	CheckableItem[] items;
+	JScrollPane scrollPane;
+	JList jlist;
 	
 	public JP_Stu_Course_Query(String name){
 		init(name);
@@ -37,43 +38,102 @@ public class JP_Stu_Course_Query extends JPanel implements ActionListener{
 		setBounds(0, 0, 700, 500);
 		setFont(UIutils.font);
 		
-		JButton  BT_add = new JButton("查询");
-		BT_add.setBounds(108, 80, 120, 30);
-		BT_add.setFont(UIutils.font);
-		BT_add.setFocusable(false);
-		add(BT_add);
+		JButton bt1 = new JButton("检索");
+		bt1.setBounds(488, 15, 120, 30);
+		bt1.setFont(UIutils.font);
+		bt1.addActionListener(this);
+		add(bt1);
 		
-		JScrollPane scrop = new JScrollPane();  //滚动窗口
-		scrop.setBounds(34,120,500,300);
-		add(scrop);
-				
-		textAreaOutput = new JTextArea("显示查课", 20, 43);
-		textAreaOutput.setBackground(Color.WHITE);
-		textAreaOutput.setSelectedTextColor(Color.BLACK);
-		textAreaOutput.setLineWrap(true);        //激活自动换行功能 
-		textAreaOutput.setWrapStyleWord(true);   // 激活断行不断字功能
-		scrop.setViewportView(textAreaOutput);
+		JButton bt2 = new JButton("退课");
+		bt2.setBounds(488, 60, 120, 30);
+		bt2.setFont(UIutils.font);
+		bt2.addActionListener(this);
+		add(bt2);
 		
-		BT_add.addActionListener(this);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(15, 15, 460, 380);
+		add(scrollPane);
+		
+		
+		
+		
+		
 	}
+
+	/**
+	 * 鼠标点击复选框的响应方法
+	 */
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(jlist.getSelectedIndex()<0){
+			return;
+		}
+		CheckableItem tmp = (CheckableItem)jlist.getSelectedValue();
+		tmp.setSelected(!tmp.isSelected());
+		jlist.repaint();
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
+	@Override
+	public void mousePressed(MouseEvent e) {}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
 	
 
 	
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("查询")){
-			Application ap = Application.getApplication();
-			MDB mdb = ap.getMDB();
-			
+		Application application = Application.getApplication();
+		MDB mdb = application.getMDB();
+		String id = application.getLoginID();
+		if(e.getActionCommand().equals("检索")){
+			//调用函数获得String数组
 			ArrayList<String> class_info = mdb.getStuClassTimeAndPlace(stuid);
 			
-			String text_output = "";
-			
-			for(String str : class_info)
-			{
-				text_output += str + "\r\n";
+			for(String s:class_info){
+				System.out.println(s);
 			}
+			//获得CheckableItem
+			items = CheckableItem.createItems(class_info);
 			
-			textAreaOutput.setText(text_output);
+			//添加到滚动界面
+			jlist = new JList(items);
+			jlist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			jlist.setCellRenderer(new CheckableItem.CheckListCellRenderer());
+			jlist.addMouseListener(this);
+			scrollPane.setViewportView(jlist);
+			
+			
+			
+		}else if(e.getActionCommand().equals("退课")){
+			//遍历items获得已选的
+			scrollPane.setViewportView(null);
+			ArrayList<String> listodel = new ArrayList<String>();
+			
+			for(CheckableItem item:items){
+				if(item.isSelected()){
+					String tmp = item.toString();
+					String tmp2 = tmp.substring(tmp.indexOf('[')+1,tmp.indexOf(']'));
+					if(!listodel.contains(tmp2)){
+						listodel.add(tmp2);
+					}
+					item.setSelected(!item.isSelected());
+				}
+			}
+			String failmsg = "";
+			for(String s:listodel){
+				String[] str = s.split(" ");
+				if(!mdb.dropStuCourse(id, str[1], str[0])){
+					failmsg+=(s+"\n");
+				}
+			}
+			if(!failmsg.isEmpty()){
+				failmsg+="退课失败！";
+				JOptionPane.showMessageDialog(null, failmsg, "提示",JOptionPane.ERROR_MESSAGE);
+			}else{
+				JOptionPane.showMessageDialog(null, "退课成功！", "提示",JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 	}
 }

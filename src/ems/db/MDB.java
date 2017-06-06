@@ -262,36 +262,43 @@ public class MDB {
 			return false;
 		}
 	}
+	
 	/**
 	 * 学生信息查询函数
 	 * @param Sid	学号
 	 * @param jta	文本区
 	 * @throws SQLException
 	 */
-	public String queryStudentInfo(String Sid) throws SQLException{
+	public String queryStudentInfo(String Sid){
 		String ret = "";
 		
-		Connection conn = getConnection();
-		
-		//现在参数只有一个Sid，后面做教师查询可以把表名也拿出来做参数
-		sql="select * from Students where Sid='"+Sid+"'";
-		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(sql); // executeQuery会返回结果的集合，否则返回空值
-		
-		// 获取列名  
-        ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();  
-        
-        if( !rs.next() )
-        	return "查无此人";
-        
-        for (int i = 0; i < metaData.getColumnCount(); i++) {  
-            // rs数据下标从1开始  
-            String columnName = metaData.getColumnName(i + 1);
-            
-            ret += columnName + ": " +  rs.getString(i + 1) + "\r\n";
-        }
-        
-        return ret;
+		try {
+			Connection conn = getConnection();
+			
+			sql="select * from Students where Sid='"+Sid+"'";
+			
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql); // executeQuery会返回结果的集合，否则返回空值
+			
+	        while(rs.next())
+	        {
+	        	ret += rs.getString(1) + " ";
+	        	ret += rs.getString(2) + " ";
+	        	ret += rs.getString(3) + " ";
+	        	ret += rs.getString(4) + " ";
+	        	ret += rs.getString(5) + " ";
+	        	ret += rs.getString(6) + " ";
+	        }
+	        
+	        rs.close();
+	        stmt.close();
+	        conn.close();
+	        
+	        return ret;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}	
 	}
 	
 	/**
@@ -320,8 +327,7 @@ public class MDB {
         for (int i = 0; i < metaData.getColumnCount(); i++) {  
             // rs数据下标从1开始  
             String columnName = metaData.getColumnName(i + 1);
-            
-            ret += columnName + ": " +  rs.getString(i + 1) + "\r\n";
+            ret += rs.getString(i + 1) + " ";
         }
         
         return ret;
@@ -557,6 +563,42 @@ public class MDB {
 			return null;
 		}
 	}
+	
+//	/**
+//	 * 获取教师的授课信息
+//	 * 
+//	 * @param id 待查询教师的工号
+//	 * 
+//	 * @return 可选课程的信息([学期 课程代码] 课程名 时间 地点)
+//	 */
+//	public ArrayList<String> getTeacherClassStudent(String tid){
+//		ArrayList<String> ret = new ArrayList<String>();
+//		
+//		try{
+//			Connection conn = getConnection();
+//			
+//			Statement stmt = conn.createStatement();
+//			
+//			ResultSet res = stmt.executeQuery("select Term, Cid, Cname from Courses where Tid = '" + tid + "';");
+//						
+//			while(res.next()){
+//				String db_Term = res.getString(1);
+//				String db_Cid = res.getString(2);
+//				String db_Cname = res.getString(3);
+//				
+//				ret.add(item);
+//			}
+//			
+//			res.close();
+//			stmt.close();
+//			conn.close();
+//			
+//			return ret;
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
 	
 	/**
 	 * 获取一个学生考试信息
