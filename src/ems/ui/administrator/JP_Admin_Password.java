@@ -2,8 +2,10 @@ package ems.ui.administrator;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import ems.Application;
 import ems.utils.UIutils;
 
 import java.awt.event.ActionEvent;
@@ -62,6 +64,11 @@ public class JP_Admin_Password extends JPanel implements ActionListener{
 		String ID = tf_id.getText();
 		String newPassword = tf_newpwd.getText();
 		
+		boolean ret = Application.getApplication().getMDB().updatePassword(ID, newPassword);
 		
+		if(ret == true)
+			JOptionPane.showMessageDialog(null, "密码修改成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+		else
+			JOptionPane.showMessageDialog(null, "密码修改失败", "提示", JOptionPane.ERROR_MESSAGE);
 	}
 }

@@ -246,19 +246,29 @@ public class MDB {
 	 * @param newpass	新密码
 	 * @throws SQLException
 	 */
-	public boolean updatePassword(String id, String newpass) throws SQLException{
-		Connection conn = getConnection();
-		
-		sql = "update User set Password='"+newpass+"'where LoginID='"+ id + "'";
-		Statement stmt = conn.createStatement();
-		int result = stmt.executeUpdate(sql);// executeQuery会返回结果的集合，否则返回空值
-		
-		if(result == 1)
-		{
-			return true;
-		}
-		else
-		{
+	public boolean updatePassword(String id, String newpass){
+		try {
+			Connection conn = getConnection();
+			
+			sql = "update User set Password='"+newpass+"'where LoginID='"+ id + "'";
+			
+			
+			Statement stmt = conn.createStatement();
+			int result = stmt.executeUpdate(sql);// executeQuery会返回结果的集合，否则返回空值
+			
+			stmt.close();
+			conn.close();
+			
+			if(result == 1)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
