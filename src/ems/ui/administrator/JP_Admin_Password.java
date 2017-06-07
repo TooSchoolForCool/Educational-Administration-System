@@ -58,7 +58,6 @@ public class JP_Admin_Password extends JPanel implements ActionListener{
 		
 		
 	}
-	
 
 	public void actionPerformed(ActionEvent e) {
 		String ID = tf_id.getText();

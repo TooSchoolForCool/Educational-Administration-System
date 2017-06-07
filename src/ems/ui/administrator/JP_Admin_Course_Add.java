@@ -2,8 +2,10 @@ package ems.ui.administrator;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import ems.Application;
 import ems.utils.UIutils;
 
 import java.awt.event.ActionEvent;
@@ -66,7 +68,7 @@ public class JP_Admin_Course_Add extends JPanel implements ActionListener{
 		tf3.setFont(UIutils.font);
 		add(tf3);
 		
-		JLabel Label4 = new JLabel("专业");
+		JLabel Label4 = new JLabel("院系");
 		Label4.setBounds(30, 160, 70, 30);
 		Label4.setFont(UIutils.font);
 		add(Label4);
@@ -105,5 +107,11 @@ public class JP_Admin_Course_Add extends JPanel implements ActionListener{
 		String Tid = tf5.getText();      	//老师ID
 //		System.out.println(Cname+" "+Cid+" "+Term+" "+Cdepart+" "+Tid);
 		
+		boolean ret = Application.getApplication().getMDB().addNewCourse(Cname, Cid, Term, Cdepart, Tid);
+		
+		if(ret == true)
+			JOptionPane.showMessageDialog(null, "课程添加成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+		else
+			JOptionPane.showMessageDialog(null, "课程添加失败", "提示", JOptionPane.ERROR_MESSAGE);
 	}
 }

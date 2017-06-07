@@ -105,6 +105,37 @@ public class MDB {
 		}
 	}
 	
+	public boolean addNewCourse(String cname, String cid, String term, String dept, String tid)
+	{
+		boolean ret = true;
+		
+		String sql = generateInsertSQL("Courses", 5);
+		
+		try {
+			Connection conn = getConnection();
+			PreparedStatement preStmt = conn.prepareStatement(sql);  
+			
+	        preStmt.setString(1, cname);  
+	        preStmt.setString(2, cid);
+	        preStmt.setString(3, term);
+	        preStmt.setString(4, dept);
+	        preStmt.setString(5, tid);
+	        
+	        int update_res = preStmt.executeUpdate();
+	        
+	        if(update_res != 1)
+	        	ret = false;
+			
+	        preStmt.close();
+			conn.close();	
+		} catch (Exception e) {
+			e.printStackTrace();
+			ret = false;
+		}
+		
+		return ret;
+	}
+	
 	public boolean addNewCourse4Student(String sid, String course_info)
 	{
 		boolean ret = true;
