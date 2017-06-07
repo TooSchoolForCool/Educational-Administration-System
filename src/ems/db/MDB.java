@@ -269,7 +269,7 @@ public class MDB {
 				String id_type = (res.getInt(1) == 1 ? "Tid" : "Sid");
 				
 				Statement stmt2 = conn.createStatement();
-				ResultSet res2 = stmt.executeQuery("select * from " + tbl_type + " where " + id_type + " = '" + id + "';");
+				ResultSet res2 = stmt2.executeQuery("select * from " + tbl_type + " where " + id_type + " = '" + id + "';");
 				
 				if(res2.next())
 				{
@@ -319,6 +319,53 @@ public class MDB {
 			ret = false;
 		}
 		
+		return ret;
+	}
+	
+	public boolean updateUserInfo(String id, String name, String age, String gender, String dept, String major)
+	{
+		boolean ret = true;
+		
+		try {
+			Connection conn = getConnection();
+
+			Statement stmt = conn.createStatement();
+			
+			ResultSet res = stmt.executeQuery("select Authoritiy from User where LoginID = '" + id + "';");
+
+			if(res.next())
+			{
+				String sql;
+				
+				if(res.getInt(1) == 1)
+				{
+					sql = "update Teachers set Tname = '" + name + "', Tage = '" + age + "', Tsex = '" + gender
+							+ "', Taca = '" + dept + "', Tdepart = '" + major + "' where Tid = '" + id + "';";
+				}
+				else
+				{
+					sql = "update Students set Sname = '" + name + "', Sage = '" + age + "', Ssex = '" + gender
+							+ "', Taca = '" + dept + "', Tdepart = '" + major + "' where Sid = '" + id + "';";
+				}
+				
+				Statement stmt2 = conn.createStatement();
+				
+				int update_res = stmt2.executeUpdate(sql);
+				
+				if(update_res != 1)
+					ret = false;
+				
+				stmt2.close();
+			}
+			
+			res.close();
+			stmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			ret = false;
+		}
+
 		return ret;
 	}
 	

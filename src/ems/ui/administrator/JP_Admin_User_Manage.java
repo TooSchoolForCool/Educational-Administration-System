@@ -153,6 +153,19 @@ public class JP_Admin_User_Manage extends JPanel implements ActionListener{
 			//id=tf2.getText();姓名=tf4.getText();年龄=tf5.getText();性别=tf6.getText()
 			//学院=tf7.getText();专业=tf8.getText();
 			
+			String id = tf2.getText();
+			String name = tf4.getText();
+			String age = tf5.getText();
+			String gender = tf6.getText();
+			String dept = tf7.getText();
+			String major = tf8.getText();
+			
+			boolean ret = Application.getApplication().getMDB().updateUserInfo(id, name, age, gender, dept, major);
+			
+			if(ret == true)
+				JOptionPane.showMessageDialog(null, "信息修改成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+			else
+				JOptionPane.showMessageDialog(null, "信息修改失败", "提示", JOptionPane.ERROR_MESSAGE);
 			
 			tf2.setText("");
 			tf4.setText("");
