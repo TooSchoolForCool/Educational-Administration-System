@@ -218,6 +218,64 @@ public class MDB {
 		return ret;
 	}
 
+	public ArrayList<String> getCourseInfo(String cname)
+	{
+		ArrayList<String> arraylist = new ArrayList<String>();
+		
+		try {
+			Connection conn = getConnection();
+
+			Statement stmt = conn.createStatement();
+			
+			ResultSet res = stmt.executeQuery("select * from courses where cname = '" + cname + "';");
+
+			if(res.next())
+			{
+				arraylist.add(res.getString(1));
+				arraylist.add(res.getString(2));
+				arraylist.add(res.getString(3));
+				arraylist.add(res.getString(4));
+				arraylist.add(res.getString(5));
+			}
+			
+			res.close();
+			stmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		if(arraylist.size() == 0)
+			return null;
+		else
+			return arraylist;
+	}
+	
+	public boolean updateCourseInfo(String cname, String cid, String term, String dept, String tid)
+	{
+		boolean ret = true;
+		
+		try {
+			Connection conn = getConnection();
+			Statement stmt = conn.createStatement();
+			
+			int update_res = stmt.executeUpdate("update Courses set Cname = '" + cname + "', Term = '"
+					+ term + "', Cdepart = '" + dept + "', Tid = '" + tid + "' where Cid = '" + cid + "';");
+	        
+	        if(update_res != 1)
+	        	ret = false;
+			
+	        stmt.close();
+			conn.close();	
+		} catch (Exception e) {
+			e.printStackTrace();
+			ret = false;
+		}
+		
+		return ret;
+	}
+	
 	/**
 	 * 获取学生选课信息
 	 * 

@@ -52,12 +52,12 @@ insert into Students values('2014080103','李姗妮',20,'女','信息院','CS');
 -- 课程信息表
 create table Courses
 (
-    Cname varchar(40),
+    Cname varchar(40) unique,
     Cid varchar(20),
     Term varchar(20),
     Cdepart varchar(20),
     Tid varchar(20),
-    constraint pk_name primary key (Cid, Term),
+    constraint pk_name primary key (Cid),
     foreign key(Tid) references Teachers(Tid)
 );
 

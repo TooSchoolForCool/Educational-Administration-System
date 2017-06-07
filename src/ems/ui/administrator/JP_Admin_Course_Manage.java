@@ -2,12 +2,15 @@ package ems.ui.administrator;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import ems.Application;
 import ems.utils.UIutils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 
@@ -48,6 +51,7 @@ public class JP_Admin_Course_Manage extends JPanel implements ActionListener {
 		add(Label2);
 
 		tf2 = new JTextField();
+		tf2.setEditable(false);
 		tf2.setBounds(100, 140, 250, 30);
 		tf2.setFont(UIutils.font);
 		add(tf2);
@@ -103,7 +107,22 @@ public class JP_Admin_Course_Manage extends JPanel implements ActionListener {
 		if (e.getSource() == btquery) {		// 根据课程名，检索课程，调用查询函数
 			String Cname = tf1.getText();  //课程名
 //			System.out.println("Cname="+Cname);
-			
+			ArrayList<String> ret = Application.getApplication().getMDB().getCourseInfo(Cname);
+
+			if(ret == null)
+			{
+				JOptionPane.showMessageDialog(null, "查无此课", "提示", JOptionPane.ERROR_MESSAGE);
+				tf2.setText("");
+				tf3.setText("");
+				tf4.setText("");
+				tf5.setText("");
+			}
+			else{
+				tf2.setText(ret.get(1));
+				tf3.setText(ret.get(2));
+				tf4.setText(ret.get(3));
+				tf5.setText(ret.get(4));	
+			}
 		}
 		if (e.getSource() == bt) {// 调用修改函数，修改课程信息
 			String Cname = tf1.getText();    	//课程名
@@ -113,6 +132,12 @@ public class JP_Admin_Course_Manage extends JPanel implements ActionListener {
 			String Tid = tf5.getText();      	//老师ID
 //			System.out.println(Cname+" "+Cid+" "+Term+" "+Cdepart+" "+Tid);
 			
+			boolean ret = Application.getApplication().getMDB().updateCourseInfo(Cname, Cid, Term, Cdepart, Tid);
+			
+			if(ret == true)
+				JOptionPane.showMessageDialog(null, "课程修改成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+			else
+				JOptionPane.showMessageDialog(null, "课程修改失败", "提示", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
