@@ -252,6 +252,52 @@ public class MDB {
 			return arraylist;
 	}
 	
+	public ArrayList<String> getUserInfo(String id)
+	{
+		ArrayList<String> arraylist = new ArrayList<String>();
+		
+		try {
+			Connection conn = getConnection();
+
+			Statement stmt = conn.createStatement();
+			
+			ResultSet res = stmt.executeQuery("select Authoritiy from User where LoginID = '" + id + "';");
+
+			if(res.next())
+			{
+				String tbl_type = (res.getInt(1) == 1 ? "Teachers" : "Students");
+				String id_type = (res.getInt(1) == 1 ? "Tid" : "Sid");
+				
+				Statement stmt2 = conn.createStatement();
+				ResultSet res2 = stmt.executeQuery("select * from " + tbl_type + " where " + id_type + " = '" + id + "';");
+				
+				if(res2.next())
+				{
+					arraylist.add(res2.getString(2));
+					arraylist.add(res2.getString(3));
+					arraylist.add(res2.getString(4));
+					arraylist.add(res2.getString(5));
+					arraylist.add(res2.getString(6));
+				}
+				
+				res2.close();
+				stmt2.close();
+			}
+			
+			res.close();
+			stmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		if(arraylist.size() == 0)
+			return null;
+		else
+			return arraylist;
+	}
+	
 	public boolean updateCourseInfo(String cname, String cid, String term, String dept, String tid)
 	{
 		boolean ret = true;

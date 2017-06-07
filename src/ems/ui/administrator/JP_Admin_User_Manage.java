@@ -3,12 +3,15 @@ package ems.ui.administrator;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import ems.Application;
 import ems.utils.UIutils;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 
@@ -123,11 +126,42 @@ public class JP_Admin_User_Manage extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btquery){//调用查询函数，id=tf2.getText();
+			String id = tf2.getText();
 			
+			ArrayList<String> ret = Application.getApplication().getMDB().getUserInfo(id);
+
+			if(ret == null)
+			{
+				JOptionPane.showMessageDialog(null, "查无此人", "提示", JOptionPane.ERROR_MESSAGE);
+				tf4.setText("");
+				tf5.setText("");
+				tf6.setText("");
+				tf7.setText("");
+				tf8.setText("");
+			}
+			else{
+				tf4.setText(ret.get(0));
+				tf5.setText(ret.get(1));
+				tf6.setText(ret.get(2));
+				tf7.setText(ret.get(3));
+				tf8.setText(ret.get(4));
+			}
+			
+			tf2.setEditable(false);
 		}
 		if(e.getSource()==bt){//调用修改函数，
 			//id=tf2.getText();姓名=tf4.getText();年龄=tf5.getText();性别=tf6.getText()
 			//学院=tf7.getText();专业=tf8.getText();
+			
+			
+			tf2.setText("");
+			tf4.setText("");
+			tf5.setText("");
+			tf6.setText("");
+			tf7.setText("");
+			tf8.setText("");
+			
+			tf2.setEditable(true);
 		}
 	}
 }
