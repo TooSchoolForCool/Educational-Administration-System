@@ -49,7 +49,7 @@ public class JF_Admin extends JFrame implements ActionListener,ChangeListener{
 		TP_ctrl.add("密码管理", new JP_Admin_Password("密码管理"));
 		TP_ctrl.add("课程管理", new JP_Admin_Course("课程管理"));
 		TP_ctrl.add("用戶管理", new JP_Admin_User_Manage("用戶管理"));
-		TP_ctrl.add("班级管理", new JP_Admin_Class("班级管理"));
+//		TP_ctrl.add("班级管理", new JP_Admin_Class("班级管理"));
 		
 		
 		Container container = this.getContentPane();
